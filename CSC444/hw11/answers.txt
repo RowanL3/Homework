@@ -1,0 +1,132 @@
+Rowan Lochrin
+
+1a. .node {}
+
+1b. circle {}
+
+1c. #main {}
+
+2a. {"country":"US", "GDP": 16.77}
+
+2b. [1,3,5,7,9]
+
+2c. Refers to the context in which a function is called.
+
+3a. <line x1="0",y1="0", x2="200" y2="200", stroke="blue">
+
+3b.  var div = document.createElement("div");
+	div.innerHTML = "this is a test";
+	div.className = "MyClass";
+	document.body.appendChild(div);
+
+4a.  d3.select("#main").append("svg").attr("width",300).attr("height",300);
+
+4b. svg.selectAll("rect").data(data).enter()
+	.append("rect")
+	.attr("width", 10)
+	.attr("height", 10)
+	.attr("x", function(d){ return d.x; })
+	.attr("y", function(d){ return d.y; });
+
+5a. scale(3) = 230, scale(5) = 250, scale(15) = 350.
+
+5b. scale(-5) = translate(-100, 300), scale(5) = translate(100, 100), 
+	scale(20) = translate(400, -200) 
+
+6a. Special cells in our eyes call cones activate specifically when they are hit 
+	a certain wave length of light, we have 3 types of cones, one that 
+	responds to blue light, one that responds to red light and one that 
+	responds to green light. We get infer information about color by how 
+	many of each cone activated.
+
+6b. Red/Green color blindness. Because red and green cones activate at similar 
+	wavelengths normally sometimes they can overlap and a person will lose 
+	the ability to differentiate green and red light.
+
+7. a) LAB space would be good as distances on the color wheel correspond to
+	perceptual differences in color. In addition the way LAB has red green
+	variation as it's own attribute make it easier to see witch colors will 
+	be hard to distinguish for red/green color blind people.
+
+
+8. c) It's always best to use luminance to depict shape (like the shapes of
+	countries or states on a map) as we can see differences in luminance
+	easily regardless of hue.
+
+9. Separable visual channels are perceived independently from one another e.g 
+	color and position, integral visual channels are perceived together as
+	part of a whole e.g. width and height are both perceived as impacting 
+	size.
+
+10. They take advantage of the gestalt nature of human perception, that is the 
+	way we can quickly infer containment relations. When we look at a 
+	treemap we can very easily see containment in a hierarchy. E.g. When 
+	treemapping files on a hard drive if we see that file A contains file B
+	and file B contains file C it's easy for us to infer that file A 
+	contains file B.
+
+11. You should seek to provide an overview of the data, a way to filter the 
+	data, and a way to highlight (or get information about) any particular 
+	data point. Also due to the way we perceive space and distance, 
+	the blue dots appear lower when they're over higher bars which is not
+	ideal as it conflates the two aspects of our data.
+
+12. It's hard to see which dot's are above which bars, so the connection between
+	the two data points is unclear. There is no text on either axis, so I 
+	have no idea if it ranges from 0 to 20 trillion dollars or 0 to 20 grains
+	of sand.
+
+13. To represent data over a wide range, without making it impossible to see 
+	differences in smaller values. E.g. If you're graphing the speeds of
+ 	different vehicles, you want to be able to see that a skateboard is 
+	slightly faster then a wheel chair and a fighter jet is faster 
+	then a 747. Howver scaling linearly with the first comparison in mind would 
+	make the graph to big if you wanted to show the second, and scaling linearly 
+	with the second comparison in mind would make the difference in the 
+	first one to small to recognize.
+
+14. Because if you have time data that's been recorded at irregular intervals, 
+	you may misrepresent it by spacing it evenly. E.g if you have values for 
+	how high the water levels are in the Tucson aquifer in the years 1981, 
+	1982, and 1995 if the aquifer has been losing 2 inches of water a year 
+	then plotting these timestamps a fixed distance apart will make it look 
+	like the aquifer was losing water much faster at the end of the chart.
+
+15. 1. For higher dimensional data you must use multiple scatter plot matrices 
+	in places where you could simply use one parallel coordinate plot.
+	2. When using multiple scatter plots for higher dimensional data it can 
+	tricky to see where one point lands on one scatter plot based on where it 
+	lands on another. The only way to do this is by color coding the dots
+	or adding some interactive element.
+
+16. When you know the distance between any two data points and you wish to plot 
+	those points in a way that maintains distance relations
+
+17. There's the attractive force where edges act like springs and draw connected
+	nodes together based on Hocks Law. There's also the force that pushes two
+	nodes away from each other base on Coulomb's law. There are also two other 
+	forces, friction which slows the movement of any node and alpha which 
+	gradually slows the movement of the system to zero to insure the graph 
+	reaches a stable (static) state eventually.
+
+18. When there are a relatively small number of nodes (< 25), and a lot of connections
+	between them. Because in matrix diagrams there is a space for every 
+	possible connection between two nodes its easy to check if two particular
+	nodes are connected. This may not be true on a node link diagram 
+	as if all twenty or so nodes there may be 300 or so different edges on 
+	a densely connected graph and seeing if two nodes are connected may be 
+	made impossible by all the overlapping edges.
+
+19. Because every vertex of the pentagon can have one of two states and there a 
+	five vertices of a pentagon there are 2^5 = 32 possible different cases.
+	
+20.  Hedhehog plots don't have arrows so for every square on a hedhehog plot 
+	there are two possible directions that the vector field at that square 
+	could possibly point because the head of the arrow could be on either 
+	end of the line.
+ 	
+21a. If a maps projection preserves area then the Tissot's indicatrices will all
+	have equal area (some will not be circles though).
+
+21b. If a maps projection preserves shape then the Tissot's indicatrices will all
+	be undeformed circles (they will have different area's though).

@@ -1,0 +1,98 @@
+\documentclass[11pt] {article}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{array}
+\usepackage{enumitem}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\T}{\mathcal{T}}
+\newcolumntype{C}{>$c<$}
+\newcolumntype{L}{>$l<$}
+
+\begin{document}
+\begin{flushleft}
+Rowan Lochrin\\
+MATH3961\\
+Homework 1\\
+27/4/17\\
+\end{flushleft}
+\begin{enumerate}
+\item
+\begin{enumerate}
+\item
+
+The map $I: (X,d) \to (X,d')$ is a homomorphism.  As every Cauchy sequence in $(X,d)$ is a Cauchy sequence in $(X,d')$ and vice versa (part b) and $I$ is the identity function. 
+\item
+if $(x_n)$ is  a Cauchy sequence in $(X,d)$, then:  
+$$\forall \epsilon > 0 \exists N_\epsilon|n,m > N_\epsilon \Rightarrow d(x_n, x_m) <  \epsilon $$
+Because $\forall x_n,x_m:d'(x_n, x_m) \leq d(x_n,x_n)$, $d'(x_n, x_m) < \epsilon$.
+\\ \\
+If $(x_n)$ is a Cauchy sequence in $(X,d')$, then:
+ $$\forall \epsilon > 0 \exists N_\epsilon : n,m > N_\epsilon \Rightarrow d'(x_n, x_m) <  \epsilon $$
+ Meaning
+$$\exists N_1: n,m > N_1 \Rightarrow d'(x_n,x_m) < 1 $$
+So for any $\epsilon$ chose $N_{\epsilon '} = max(N_1,N_\epsilon)$, then:
+$$ n,m > N_\epsilon,  \Rightarrow d'(x_n,x_m) < \epsilon $$ 
+and because $d(x_n,x_m) < 1$:
+$$  n,m > N_1 \Rightarrow d(x_n,x_m) = d'(x_n,x_m) $$
+so
+$$  n,m > N_{\epsilon'} \Rightarrow d(x_n,x_m) < \epsilon $$
+\item 
+Yes. If $(X,d) $ is complete, every Cauchy sequence in $(X,d)$ converges to an element of $X$. Because the set of all Cauchy sequences in $(X,d)$ and $(X,d')$ is the same (part b), $(X,d')$ must also be complete. If $(X,d) $ is incomplete then there must be some Cauchy sequence in $(X,d)$ and $(X,d')$ that does not converge to an element of $X$ so $(X,d')$ is also incomplete.
+\end{enumerate}
+\item
+\begin{enumerate}
+\item 
+$$f_n(x) = (-1)^n|x|-|2x|+3 $$ Under the uniform metric $(f_n) \to 3$ on the interval [-1,1]. However by the $L_1$ metric it alternates between 3 and 5 forever and thus doesn't converge.\\
+\item
+ \[
+f_n(x)=  \begin{cases} 
+       n-xn^3  & \text{  if $x < 1/n^2 $} \\
+      0  & \text{  if $x \geq 1/n^2 $} \\
+  \end{cases}
+ \]
+ On the interval [0,1] $f_n$ converges to 0 but $L_1$ metric. However by the uniform metric $(f_n) \to \infty $ because ($f_n(0)) \to \infty$ so it diverges.
+ \end{enumerate}
+ \item
+ \item
+ \begin{enumerate}
+ \item
+$d$ is a metric on $\R^2$ because $\forall x,y,z\in \R$:
+\begin{enumerate}
+\item
+$ d(x,y) = max(|x_1 - y_1|,|x_2 - y_2|)  \geq 0$. and:
+$$ max(|x_1 - y_1|,|x_2 - y_2|) = 0 \Leftrightarrow x_1 = y_1, x_2 = y_2 \Leftrightarrow x = y $$
+\item
+$ max(|x_1 - y_1|,|x_2 - y_2|) = max(|y_1 - x_1|,|y_2 - x_2|) \Rightarrow d(x,y) = d(y,x)$
+\item Without loss of generality let $|x_1 - z_1| \geq | x_2 - z_2 |$:
+
+$$d(x,z) = max(|x_1 - z_1|, | x_2 - z_2 |)$$
+$$= |x_1 - z_1| =  |x_1 - y_1 + y_1 - z_1| \leq  |x_1 - y_1| + |y_1 - z_1| $$
+$$\leq max(|x_1 - y_1|,|x_2 - y_2|) + max(|y_1 - z_1|,|y_2 - z_2|)$$
+$$ = d(x,y)+d(y,z)$$
+\end{enumerate} 
+The ball $B(0;1)$ is a open square of side length $2$ around the origin.
+\item All balls centered at $0$ have one of the following forms 
+$$[0,n):0 < n < 1$$
+$$[0,1]$$
+$$[0,1 ]\cup [2,n): 2< n < 3$$
+$$[0,1]\cup [2,3]$$
+ \end{enumerate}
+ \item
+
+ If $A = B: $
+  \begin{enumerate}
+ \item
+ $$int(A\cup B) = int(A) = int(A)\cup int(A) = int(A) \cup Int(B)$$
+ \item
+ $$ \overline{A\cup B}  =  \overline{A \cup A} = \overline{A} = \overline{A} \cup \overline{A} = \overline{A} \cup \overline{B}$$
+ \end{enumerate}
+ 
+ 
+\end{enumerate}
+\end{document}

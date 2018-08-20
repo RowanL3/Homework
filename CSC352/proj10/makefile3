@@ -1,0 +1,8 @@
+A: B C
+	 command to build A from B,C
+B: D
+	       command to build B from D
+C: D
+	 command to build C from D
+D:
+	 command to build D

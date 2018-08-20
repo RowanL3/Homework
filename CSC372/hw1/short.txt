@@ -1,0 +1,25 @@
+By: Rowan Lochrin
+For: CSC372
+On: 9/6/17
+Filename: short.txt
+
+1.
+	a) (* 4 (+ 4 ( / 4 (expt 2 2 )))) = 20
+	b) (car (cdr (car ' (((a b) c (d) e) f g)))) = 'c
+	c) (cadaar ' ((((a b) (c d)) e f (g h )) i)) = 'c d
+	d) (null? (cdddr '(a a a))) = #t (true)
+	e) (cond ((even? 5) '(v)) ((odd? 6) 'a) (else (= (* 6 7 42))))
+         
+2.
+	a) (length-even '(1 2 3 4))
+		(length-even '(2 3 4))
+			(length-even '(3 4))
+				(length-even '(4))
+					(length-even '())
+	b) (remember-all 'a '(a b a d))
+	 	(remember-all 'a '(b a d))
+			(remember-all 'a '(a d))
+				(remember-all 'a '(d))
+					(remember-all 'a '())
+
+	

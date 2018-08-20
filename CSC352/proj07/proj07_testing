@@ -1,0 +1,10 @@
+#!/bin/bash
+tests=$(ls -d test_*)
+for x in $tests ; do
+    cd $x;
+    ../PhoneCalls $(cat CMDLINE) >myOut 2>myErrOut
+    echo $? >>myES
+    ../example_PhoneCalls $(cat CMDLINE) >exOut 2>exErrOut
+    echo $? >>exES
+    cd ..;
+done

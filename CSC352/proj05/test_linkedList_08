@@ -1,0 +1,8 @@
+insert             MultipleSpaces      17
+print
+
+insert Foo 123
+print
+delete                         Foo   
+print
+

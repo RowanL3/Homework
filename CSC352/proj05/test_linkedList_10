@@ -1,0 +1,5 @@
+insert rejectDups 1
+print
+insert rejectDups 2
+print
+

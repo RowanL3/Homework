@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="data.js"></script>
+
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Assignment 3</title>
+	<style>
+	body {
+	    background-color: linen;
+	}
+	h1 {
+	    color: maroon;
+	    margin-left: 40px;
+	}
+	h2 {
+	    color: maroon;
+	    margin-left: 40px;
+	}
+	h3 {
+	    color: maroon;
+	}
+	</style>
+  </head>
+<body>
+<h1>Assignment 4</h1>
+<h2> Rowan Lochrin </h2>
+<hr />
+<h3> Chart 1 </h3>
+<div id="chart1"></div>
+<h3> Chart 2 </h3>
+<div id="chart2"></div>
+<h3> Chart 3 </h3>
+<div id="chart3"></div>
+<h3> Scatter Plot 1 </h3>
+<div id="scatterplot_1"> </div>
+<script>
+
+// HELPER FUNCTIONS
+function toHex(v) {
+    var str = "00" + Math.floor(Math.max(0, Math.min(255, v))).toString(16);
+    return str.substr(str.length-2);
+}
+
+function rgb(r, g, b) {
+    return "#" + toHex(r * 255) + toHex(g * 255) + toHex(b * 255);
+}
+
+function color(count) {
+    var amount = (2500 - count) / 2500 * 255;
+    var s = toHex(amount), s2 = toHex(amount / 2 + 127), s3 = toHex(amount / 2 + 127);
+    return "#" + s + s2 + s3;
+}
+
+// MAIN
+// chart1
+chart1 = d3.select("#chart1").append("svg")
+		.attr("width", 600)
+		.attr("height", 300);
+
+var rect_width = Math.ceil(600 / (1984 - 1969 + 1));
+var rect_height = Math.ceil(300 / 12);
+
+for(i = 0; i < ukDriverFatalities.length; i++){
+	var fatality = ukDriverFatalities[i];
+	var x = Math.ceil(600 / (1984 - 1969 + 1)) * (fatality.year - 1969);
+	var y = Math.ceil(300 / 12) * (11 - fatality.month); 
+	chart1.append("rect")
+		.attr("x", x)
+		.attr("y", y)
+		.attr("width", rect_width)
+		.attr("height", rect_height)
+		.attr("fill", color(fatality.count));
+}
+// chart2
+chart2 = d3.select("#chart2").append("svg")
+		.attr("width", 600)
+		.attr("height", 300);
+
+for(i = 0; i < ukDriverFatalities.length; i++){
+	var fatality = ukDriverFatalities[i];
+	var cx = Math.ceil(600 / (1984 - 1969 + 1)) * (fatality.year - 1969 + 0.5); 
+	var cy = Math.ceil(300 / 12) * (11 - fatality.month + 0.5); 
+	var r = fatality.count / 500 * 3;
+
+	chart2.append("circle")
+		.attr("cx", cx)
+		.attr("cy", cy)
+		.attr("r", r)
+		.attr("stroke", "white")
+		.attr("fill", "blue");
+}
+
+// chart3
+var width = Math.ceil(600 / ukDriverFatalities.length);
+
+chart3 = d3.select("#chart3").append("svg")
+		.attr("width", 600)
+		.attr("height", 300);
+
+for(i = 0; i < ukDriverFatalities.length; i++){
+	var fatality = ukDriverFatalities[i];
+	var height = fatality.count / 2500 * 300; 
+	var x = i * 600 / ukDriverFatalities.length; 
+	var y = 300 - (fatality.count / 2500 * 300);
+	chart3.append("rect")
+		.attr("x", x)
+		.attr("y", y)
+		.attr("width", width)
+		.attr("height", height)
+		.attr("fill", "grey");
+}
+
+// scatterplot_1
+scatterplot_1 = d3.select("#scatterplot_1").append("svg")
+		.attr("width", 800)
+		.attr("height", 800);
+
+for(i = 0; i < scores.length; i++){
+	var score = scores[i];
+	var r = Math.ceil(score.ACT - 10);
+	var cx = Math.ceil(score.SATM);
+	var cy = 800 - Math.ceil(score.SATV); 
+	// GPA's lower then a 3.0 are reflected in shades of Red with a totally 
+	// red dot being a 1.0, GPA's higher then a 3.0 are reflected in shades 
+	// of blue, with a 4.0 being totally blue.
+	var fill = (score.GPA < 3.0) ? 
+		rgb((score.GPA -  1.0)/(3.0 - 1.0),0,0): 
+		rgb(0,0,(score.GPA -  3.0)/(4.0 - 3.0)); 
+
+	scatterplot_1.append("circle")
+		.attr("cx", cx)
+		.attr("cy", cy)
+		.attr("r", r)
+		.attr("fill", fill)
+		.attr("opacity", 0.8);
+}
+d3.select("#chart1").append("svg");
+d3.select("#chart2").append("svg");
+d3.select("#chart3").append("svg");
+d3.select("#scatterplot_1").append("svg");
+</script>
+</body>
+</html>

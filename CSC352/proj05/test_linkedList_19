@@ -1,0 +1,11 @@
+print print print print         # should be a single operation, ignore the
+print print print print         # extra text
+
+insert asdf 123 jkl 456         # everything after the expected params is
+print                           # discarded
+
+delete asdf 456                 # even if it seems like it might be useful
+print
+
+print                           no the hash symbol doesn't mean anything
+

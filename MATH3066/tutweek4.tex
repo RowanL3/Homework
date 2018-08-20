@@ -1,0 +1,81 @@
+\documentclass[11pt] {article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{array}
+\usepackage{enumitem}
+\newcolumntype{C}{>$c<$}
+\newcolumntype{L}{>$l<$}
+
+\begin{document}
+\begin{flushleft}
+Rowan Lochrin\\
+MATH3308\\
+Week 3 Tutorials \\
+23/3/17\\
+\end{flushleft}
+
+\begin{enumerate}
+\item No if he shaved himself, then he would be a person who shaved himself and thus not have shaved himself. If he does not shave himself then he would be a person who does not shave himself and thus he would have to shave himself. Because both of these options lead to contradiction he cannot of existed. 
+\item Yes, this is a valid instance of Modus Tollens. Because there are students that are not smiling we know we have a false consequent and therefore the antecedent must also be false for some students, that is to say that there are some students in the class who are not friendly. Because every student is either friendly or fierce we can conclude there are fierce students in the class.
+\item
+\begin{enumerate}
+\item This is an instance of $\land$ Elimination 
+\item $\lor$ Induction
+\item Modus Tollens
+\item $P \Rightarrow Q$, $Q \Rightarrow R$, $P \Rightarrow S$ $\vdash$ $P \Rightarrow R$, $P \Rightarrow S$, $P \Rightarrow S$ $\vdash$ $P\Rightarrow(R\land S)$
+\item Disjunctive Syllogism 
+\end{enumerate}
+\item
+\begin{enumerate}
+\item
+$P \Rightarrow (P\Rightarrow Q), P \vdash Q$
+\[
+\begin{array}{LLLL}
+1	 & (1) & $ P \Rightarrow (P\Rightarrow Q) $ &  $RA$ \\
+2	 & (2) &  $ P $ & $RA$ \\
+1,2  	 & (3) &  $ P\Rightarrow Q $ & $1,2MP$\\
+1,2  	 & (4) &  $ Q $ & $2,3MP$\\
+\end{array}
+\]
+\item
+$P \Rightarrow (Q\Rightarrow R), P,\sim R \vdash Q$
+\[
+\begin{array}{LLLL}
+1	 & (1) &  $ P \Rightarrow (P\Rightarrow R) $	 	& $RA$ \\
+2	 & (2) &  $ P $ 								& $RA$ \\
+3	 & (3) &  $ \sim R $ 							& $RA$ \\
+1,2  	 & (4) &  $ Q\Rightarrow R $ 					& $1,2MP$\\
+1,2,3  & (5) &  $ Q $ 								& $3,4MT$\\
+\end{array}
+\]
+\item
+$\sim P \Rightarrow \sim Q, Q \vdash P$
+\[
+\begin{array}{LLLL}
+1	 & (1) &  $ \sim P \Rightarrow \sim Q $		 	& $RA$ \\
+2	 & (2) &  $ Q $ 								& $RA$ \\
+2	 & (3) &  $ \sim \sim Q $ 						& $2DN$ \\
+1,2  	 & (4) &  $ \sim \sim P $ 			 			& $1,3MT$\\
+1,2	 & (4) &  $ P $ 								& $4DN$\\
+\end{array}
+\]
+\item
+$P \Rightarrow \sim Q \vdash Q \Rightarrow \sim P$
+\[
+\begin{array}{LLLL}
+1	 & (1) &  $P \Rightarrow \sim Q  $			 	& $RA$ \\
+2	 & (2) &  $ Q $ 								& $RA$ \\
+2	 & (3) &  $ \sim \sim Q $ 						& $2DN$ \\
+1,2  	 & (4) &  $ \sim P $ 			 				& $1,3MT$\\
+1 	 & (4) &  $ Q \Rightarrow \sim P $ 				& $4DN$\\
+\end{array}
+\]
+
+
+\end{enumerate}
+\end{enumerate}
+
+\end{document}

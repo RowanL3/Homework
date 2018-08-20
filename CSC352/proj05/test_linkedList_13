@@ -1,0 +1,11 @@
+insert deleteLast 10
+print
+delete deleteLast
+print
+insert insertAgain -20
+print
+delete insertAgain -20
+print
+insert thirdTime 0
+print
+

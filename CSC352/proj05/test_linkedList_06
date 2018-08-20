@@ -1,0 +1,15 @@
+print               you should ignore text after the end of commands
+
+insert asdf -1
+print
+removeHead          for no-parameter commands, this means ignore *EVERYTHING*
+print               after the command
+
+insert Foo 123
+delete Foo          for delete, it means ignore everything after the name
+
+insert bar 456      for insert, it means ignore eveything after the two
+print               parameters
+
+print
+

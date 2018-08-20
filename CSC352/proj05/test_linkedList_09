@@ -1,0 +1,25 @@
+insert NamesCanBe 1
+print
+insert any_non-whitespace 2
+print
+insert character,limited 3
+print
+insert only_to_a_20_byte 4
+print
+insert buffer. 5
+print
+insert Did_you_implement 6
+print
+insert your_code_like 7
+print
+insert that? 8
+print
+insert 1234_leadingNums 9
+print
+insert @*%@#)(%@*% 10
+print
+insert __________ 11
+print
+insert " 12
+print
+

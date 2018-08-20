@@ -1,0 +1,116 @@
+        -:    0:Source:lineSort.c
+        -:    0:Graph:./lineSort.gcno
+        -:    0:Data:-
+        -:    0:Runs:0
+        -:    0:Programs:0
+        -:    1:/* Author: Rowan Lochrin
+        -:    2: * File: lineSort.c
+        -:    3: * Purpose: read in comand line arguments file1, file2,... then
+        -:    4: * open files of that name and print all of there lines in order 
+        -:    5: * for smallest to largest by there ascii vallues. returns 0, 
+        -:    6: * unless a malloc failed then it should return 1. 
+        -:    7: *
+        -:    8: * Note: if a file is not found this program prints to stdout:
+        -:    9: * "The file '<filename>' did not exist.\n" and still returns 0.
+        -:   10: * 
+        -:   11: * Grader: I don't mean to shout but but my notes to the grader
+        -:   12: * are in all caps so hopefully they'll be more noticable.
+        -:   13:*/
+        -:   14:
+        -:   15:#include <stdio.h>
+        -:   16:#include <stdlib.h>
+        -:   17:#include <string.h>
+        -:   18:
+        -:   19:#include "utilities.h"
+        -:   20:
+        -:   21:void sort_file(FILE *file,char *file_name);
+        -:   22:void print_sorted(char **sorted_array, int array_len,char *file_name);
+        -:   23:
+        -:   24:
+        -:   25:int main(int argc, char *argv[]){
+        -:   26:    int i;
+    #####:   27:    for(i = 1; i < argc; i++){
+    #####:   28:        char * file_name = argv[i];
+        -:   29:
+        -:   30:        FILE * input_file;
+        -:   31:
+    #####:   32:        input_file = fopen(file_name, "r");        
+        -:   33:
+    #####:   34:        if(input_file){ // if a file with file_name exists
+    #####:   35:            sort_file(input_file,file_name);
+    #####:   36:            fclose(input_file);
+    #####:   37:        }
+        -:   38:        else{
+    #####:   39:            printf("The file '%s' did not exist.\n", file_name);
+        -:   40:        }
+    #####:   41:    }
+    #####:   42:    return 0;
+        -:   43:}
+        -:   44:
+        -:   45:void sort_file(FILE *file,char *file_name){
+        -:   46:    /* Scans the lines of a file into an array then sorts the array
+        -:   47:    and calls print_sorted to print the sorted array and the required
+        -:   48:    forward. */
+        -:   49:    size_t len; //only used in getline
+        -:   50:
+    #####:   51:    int num_lines = 0;
+    #####:   52:    char **output = NULL;
+        -:   53:
+    #####:   54:    while(1){
+    #####:   55:        if(num_lines % 12 == 0){ // run every 12th line
+    #####:   56:            output = extendArray(output, num_lines, num_lines + 12);
+    #####:   57:            if(output == NULL){
+    #####:   58:                exit(1); // SHOULD ONLY RUN IF MALLOC FAILED
+        -:   59:            }
+    #####:   60:        }
+    #####:   61:        char *line = NULL;
+        -:   62:
+    #####:   63:        if(getline(&line, &len, file) == -1){
+    #####:   64:            free(line); // frees the last line read in
+    #####:   65:            break;
+        -:   66:        };
+        -:   67:
+        -:   68:        // remove the newline char at end
+    #####:   69:        if(strcmp("\n",line) != 0){
+        -:   70:            // everything before the newline is the first token
+    #####:   71:            strtok(line, "\n");
+    #####:   72:        } 
+        -:   73:        else {
+        -:   74:            // if it's just a newline make it null
+    #####:   75:            *line = '\0';
+        -:   76:        }
+        -:   77:
+    #####:   78:        output[num_lines] = line;
+        -:   79:
+    #####:   80:        num_lines++;
+        -:   81:       
+        -:   82:    }
+        -:   83:
+    #####:   84:    sortArray(output, num_lines);
+        -:   85:
+    #####:   86:    print_sorted(output, num_lines, file_name);
+        -:   87:
+        -:   88:    // free all read-in lines 
+        -:   89:    int i;
+    #####:   90:    for(i = 0; i < num_lines; i++){
+    #####:   91:        free(output[i]); 
+    #####:   92:    }
+        -:   93:
+        -:   94:    // free the array itself
+    #####:   95:    free(output);
+    #####:   96:}
+        -:   97:
+        -:   98:void print_sorted(char **sorted_array, int array_len,char *file_name){
+        -:   99:    /* prints "The file '<filename>' had <array_len> lines.\n"
+        -:  100:    followed by the contents of of the array seperated by newlines 
+        -:  101:    if everything worked up to this point the array should be 
+        -:  102:    sorted. */
+    #####:  103:    printf("The file '%s' had %d lines.\n", file_name, array_len);
+        -:  104:    
+        -:  105:    // prints lines of the array
+        -:  106:    int i;
+    #####:  107:    for(i = 0; i < array_len; i++){
+    #####:  108:        printf("%s\n",*sorted_array);
+    #####:  109:        sorted_array++;
+    #####:  110:    }
+    #####:  111:}

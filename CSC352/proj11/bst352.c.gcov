@@ -1,0 +1,61 @@
+        -:    0:Source:bst352.c
+        -:    0:Graph:./bst352.gcno
+        -:    0:Data:-
+        -:    0:Runs:0
+        -:    0:Programs:0
+        -:    1:/*
+        -:    2:*   Author:  Rowan Lochrin
+        -:    3:*   File:    bst352.c
+        -:    4:*   Purpose: Simple implimation of a binary search tree, reads commands from
+        -:    5:*   STDIN suports the commands:
+        -:    6:*       i <int>: inserts <int> into the tree
+        -:    7:*       d <int>: delete's the tree node <int>
+        -:    8:*       s <int>: searchs the tree for <int>
+        -:    9:*       m: prints minimum of the tree
+        -:   10:*       M: prints maximum of the tree
+        -:   11:*       p: prints pre-order traversal
+        -:   12:*       P: prints post-order traversal
+        -:   13:*/
+        -:   14:
+        -:   15:#import <stdio.h>
+        -:   16:#import <strings.h>
+        -:   17:#import <stdlib.h>
+        -:   18:
+        -:   19:int main() {
+    #####:   20:    char* buffer = NULL;
+    #####:   21:    size_t len = 0;
+    #####:   22:    char* line = NULL;
+        -:   23:
+        -:   24:
+    #####:   25:    while (getline(&buffer, &len, stdin)) {
+    #####:   26:        line = malloc(len);
+    #####:   27:        strcpy(line, buffer);
+    #####:   28:        printf("%s\n", line);
+        -:   29:    }
+        -:   30:
+    #####:   31:    return 1;
+        -:   32:}
+        -:   33:
+        -:   34:
+        -:   35:// i <int>: insert
+        -:   36:// EC: error if the int already in tree
+        -:   37:
+        -:   38:// d <int>: delete
+        -:   39:// EC: the value does not exist
+        -:   40:
+        -:   41:// s <int>: search
+        -:   42:// print:"<int> found\n" or "<int> NOT found\n" to STDOUT
+        -:   43:
+        -:   44:// m: minimum
+        -:   45:// print: prints the min value followed by a newline
+        -:   46:// EC: prints to STDERR if the tree is blank
+        -:   47:
+        -:   48:// M: maximum
+        -:   49:// pretty much the same as minimum
+        -:   50:
+        -:   51:// p: pre-order traversal
+        -:   52:// print: a pre-order of tree on one line (blank if tree empty)
+        -:   53:
+        -:   54:// P: post-order traversal
+        -:   55:// same as post-order
+        -:   56:

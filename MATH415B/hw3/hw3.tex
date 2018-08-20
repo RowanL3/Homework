@@ -1,0 +1,177 @@
+
+\documentclass[11pt]{article}
+
+\usepackage{scrextend}
+\usepackage[a4paper, margin = 1in,footskip =0.25in]{geometry}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\graphicspath{ {images/} }
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+
+\begin{document}
+\begin{flushleft}
+	Rowan Lochrin \\
+	MATH415B - Klaus Lux \\
+	2/5/18 \\
+	Homework 3
+\end{flushleft}
+\begin{description}
+	\item[16]
+	Let $R = \begin{bmatrix} a & b \\ 0 & c \end{bmatrix}$. Prove that
+	that the mapping  $\phi: \begin{bmatrix} a & b \\ 0 & c \end{bmatrix} \rightarrow a$ is a valid homomorphism.
+	\begin{proof}
+		We seek to show
+	\begin{description}
+		\item[$\phi(a + b) = \phi(a) + \phi(b)$]
+		$$ \phi(\begin{bmatrix} a & b \\ 0 & c \end{bmatrix} +
+			\begin{bmatrix} a' & b' \\ 0 & c' \end{bmatrix})
+		= \phi(\begin{bmatrix} a + a' & b + b' \\ 0 & c + c' \end{bmatrix}) 
+		= a + a'
+		= \phi(\begin{bmatrix} a & b \\ 0 & c \end{bmatrix}) +
+			\phi(\begin{bmatrix} a' & b' \\ 0 & c' \end{bmatrix}) $$
+		
+		\item[$\phi(ab) = \phi(a)\phi(b)$] 
+		$$ \phi(\begin{bmatrix} a & b \\ 0 & c \end{bmatrix}
+			\begin{bmatrix} a' & b' \\ 0 & c' \end{bmatrix}) 
+		= \phi(\begin{bmatrix} aa' & ab' + bc' \\ 0 & cc' \end{bmatrix}) 
+		= aa'
+		= \phi(\begin{bmatrix} a & b \\ 0 & c \end{bmatrix})
+			\phi(\begin{bmatrix} a' & b' \\ 0 & c' \end{bmatrix}) $$
+	\end{description}
+	\end{proof}
+	\item[27] Let $R$ be a rind with unity and let $\phi$ be a ring
+		homomorphism from $R$ onto $S$ where $S$ has more than one
+		element. Prove that $S$ has unity.
+		\begin{proof}
+		For any element of $s \in S$ for some $r \in R$, $\phi(r) = s$.
+		Meaning that
+		$$ \phi(r) = \phi(1_R r) = \phi(1_R)\phi(r) = \phi(1_R)s = s$$
+		and	
+		$$ \phi(r) = \phi(r 1_R) = \phi(r)\phi(1_R) = s\phi(1_R) = s$$
+		so $\phi(1_R)$ is the unit in $s$.
+		\end{proof}
+	\item[42]
+		Determine all the ring homomorphisms from $Q $ to $Q$.\\
+		For any homomorphism, $ \phi$, By the first property of ring homomorphisms 
+		$$ \phi(1) = \phi(1^2) = \phi(1)^2 $$
+		So $\phi(1)$ must be an idempotent since there are only $2$
+		idempotents in $Q$
+		$$ \phi(1) = 0 \text{ or } \phi(1) = 1$$
+		\begin{description}
+		\item[If $\phi(1) = 0$]
+			For all $x$ in $Q$
+			$$\phi(x) \phi(1x) = \phi(1)\phi(x) = 0\phi(x) = 0$$
+			So $\phi$ must map every element of $Q$ to zero.
+		\item[If $\phi(1) = 1$]
+			For all $x$ in $Q$ there exists a non-zero integer $a$ such that
+			$ax$ is also an integer (e.g. Choose $a$ to be the
+			denominator of $x$). We can see that
+			\[
+				\phi(a) = \phi(\overbrace{1+...+1}^{a \text{
+					times}})  
+				= \overbrace{\phi(1) +...+\phi(1)}^{a \text{ times}} 
+				= \overbrace{1 +...+ 1}^{a \text{ times}} 
+				= a
+			\]
+				By the same reasoning $\phi(ax) = ax$ from here
+				we can see that
+				$$ \phi(a)\phi(x) = ax $$
+				$$ a \phi(x) = ax $$
+				$$ \phi(x) = x $$
+				So $\phi$ must map every element of $Q$ to
+				itself.
+
+		\end{description}
+	\item[44]
+		Let $R$ be a commutative ring of prime characteristic $p$. Show
+		that the map $x \rightarrow x^p$ is a ring homomorphism from $R$
+		to $R$.\\
+		By commutativity for any $a,b \in R$
+		$$\phi(ab) = (ab)^p
+		= \overbrace{(ab)(ab)...(ab)}^{p \text{ times}}  
+		= \overbrace{(aa...a)}^{p \text{ times}} \overbrace{(bb...b)}^{p \text{ times}}  
+		=a^pb^p
+		= \phi(a)\phi(b) $$
+		Also
+		$$ \phi(a+b) = (a + b)^p = \sum_{k=0}^p\binom{p}{k} a^{n-k}b^k$$
+		Because $p$ is prime, $p$ divides $\binom{p}{k}$ for all
+		values of $k$ except $k = 0$ and $k = 1$. Meaning for some
+		$x \in R$.
+		$\phi(a + b) = a^p + b^p + px $
+		Because $p$ is the characteristic of $R$, $px = 0$. Implying
+		$$\phi(a + b) = a^p + b^p = \phi(a) + \phi(b) $$
+	\item[47] Suppose that $R$ and $S$ are commutative rings with unities.
+		Let $\phi$ be a ring homomorphism from $R$ onto $S$ and let $A$ be
+		an ideal of $S$.
+		\begin{enumerate}
+		\item If $A$ is prime in $S$, Show that $\phi^{-1}(A)$ is prime in R.\\
+			Assume $ab \in \phi^{-1}(A)$, so $\phi(ab) =
+				\phi(a)\phi(b) \in A$ because $A$ is prime this
+				means that either $\phi(a)$ or $\phi(b)$ is in
+				$A$. So either $a$ or $b$ is in $\phi^{-1}(A)$.
+		\item  If $A$ is maximal in $S$, show that $\phi^{-1}(A)$ is maximal in $R$.\\
+			Consider the homomorphism $\Phi: R \rightarrow S/A$
+				given by the mapping $\Phi(x) = \phi(x) + A$, we
+				can see that $Ker \Phi = \phi^{-1}(A)$ so by the
+				first isomorphism theorem.
+				$$ R/\phi^{-1}(A) \approx \Phi(R) \approx S/A$$
+				Because $A$ is maximal in $S$, $S/A$ must be a
+				filed and because it is isomorphic to
+				$R/\phi^{-1}(A)$ that must also be a field,
+				hence $\phi^{-1}(A)$ is maximal in $R$.
+		\end{enumerate}
+
+	\item[56] Show that the rings $Q[\sqrt2]$ and $Q[\sqrt5]$ are not
+		isomorphic.
+		Assume that there is an isomorphism $\phi$ from $Q[\sqrt(2)]$ to
+		$Q[\sqrt(5)]$.
+		Because $\phi$ must be onto we know by the 6th property of homomorphisms that
+		$$ \phi(1) = 1$$.
+		Let $a = \phi(\sqrt2) \in Q[\sqrt5]$ then,
+		$$a^2 = \phi(\sqrt2)^2 = \phi(\sqrt2^2) = 
+		\phi(2)  = \phi(1 + 1) = \phi(1) + \phi(1) = 2 $$
+		Since there is no element of $Q[\sqrt5]$ that squares to $2$ this is a
+		contradiction meaning the two rings are not isomorphic.
+	\item[62] Give an example of a ring without unity that is contained in a
+		field.\\
+		The ring $<2>$ in $\C$. 
+	\item[64] Suppose that $\phi : R \rightarrow S$ is a ring homomorphism
+		and the image of $\phi$ is not $\{0\}$. If $R$ has unity and $S$
+		is an integral domain that $\phi$ carries the unity of $R$ to
+		the unity of S. Given an example to show that the preceding
+		statement need not be true if $S$ is not an integral domain.\\
+		Let $x = \phi(1) \in S$
+		$$\phi(1) = \phi(1^2) = \phi(1^2) = \phi(1)^2$$
+		So $x = x^2$ meaning that
+		\begin{align*}
+			0 & = x^2 - x \\
+			  & = x(x-1)
+		\end{align*}
+		Because $S$ is an integral domain and has no zero divisors
+		either $x = 0$ or $x = 1$.
+		If $ x = 0$ then for all $y \in R$, 
+		$$ \phi(y) = \phi(1y) = \phi(1)\phi(y) = 0\phi(y) = 0 $$ so the
+		image of $\phi$ is ${0}$ meaning that $\phi(1) = 1$.\\
+		For an example of why this need not be the case if $S$ is not an
+		integral domain consider the homomorphism from $Z_6$ to $Z_6$
+		given by  $x \rightarrow 3x$. 
+
+
+
+\end{description}
+\end{document}
+

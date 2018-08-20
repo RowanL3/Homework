@@ -1,0 +1,176 @@
+\documentclass[11pt]{article}
+
+\usepackage{scrextend}
+\usepackage[a4paper, margin = 1in,footskip =0.25in]{geometry}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\graphicspath{ {images/} }
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+
+\begin{document}
+\begin{flushleft}
+	Rowan Lochrin \\
+	MATH415B - Klaus Lux \\
+	2/5/18 \\
+	Homework 4
+\end{flushleft}
+\begin{description}
+	\item[11] If $\phi: R \rightarrow S$ is a ring homomorphism, define
+		$\bar\phi: R[x] \rightarrow  S[x]$ by
+		$\phi(a_nx^n + ... + a_0) \rightarrow  \phi(a_n) x^n + ...
+		\phi(a_0)$. Show that $\bar\phi$ is a ring homomorphism.
+		(This exercise is referred to in Chapter 33.)\\
+		For two elements $f,g \in R[X]$.
+		\begin{align*}
+			\bar\phi(f(x)) + \bar\phi(g(x)) 
+			& := \bar\phi(a_nx^n + ... + a_0) + \bar\phi(b_nx^n + ... + b_0) \\
+			& = \phi(a_n) x^n + ... + \phi(a_0) + \phi(b_n) x^n +... + \phi(b_0) \\
+			& = (\phi(a_n) + \phi(b_n))x^n  + ... + \phi(a_0)  + \phi(b_0) \\
+			& = \phi(a_n + b_n)x^n  + ... + \phi(a_0 + b_0) \\
+			& = \bar\phi(f(x) + g)\\
+		\end{align*}
+		and
+		\begin{align*}
+			\bar\phi(f(x))\bar\phi(g(x)) 
+			& = \bar\phi(a_nx^n + ... + a_0)\bar\phi(b_{m}x^m + ... + b_0) \\
+			& = (\phi(a_{n+m})\phi(b_0) + ... + \phi(a_0)\phi(b_{m+n}))x^{n+m} \\
+			& \qquad + (\phi(a_{n+m -1})\phi(b_0) + ...  + \phi(a_0)\phi(b_{m+n - 1}))x^{n+m -1} \\
+			& \qquad +  ...  \\
+			& \qquad + \phi(a_0)\phi(b_0)x^0 \\
+			& = (\phi(a_{n+m}b_0) + ... + \phi(a_0b_{m+n}))x^{n+m} \\
+			& \qquad + (\phi(a_{n+m -1}b_0) + ...  + \phi(a_0b_{m+n - 1}))x^{n+m -1} \\
+			& \qquad +  ...  \\
+			& \qquad + \phi(a_0b_0)x^0 \\
+			& = \phi(a_{n + m}b_0 + ... + a_0b_{m + n})x^{n + m} \\
+			& \qquad + \phi(a_{n+m-1}b_0 + ...  + a_0b_{m + n - 1})x^{n + m - 1} \\
+			& \qquad +  ...  \\
+			& \qquad + \phi(a_0b_0)x^0 \\
+			& = \bar\phi(f(x)g(x)) \\
+		\end{align*}
+	\item[19]
+		\begin{enumerate}
+		\item Let D be an integral domain and $f, g \in D[x]$. Prove that
+				$deg(f \circ g) > deg(f) + deg(g)$. 
+		\begin{proof} Let $f$ be a polynomial of degree $n$ and $g$ be a polynomial of
+		degree $m$.
+		\begin{align*}
+			(f \circ g)(x) 
+			& := (a_nx^n + ... + a_0) \circ (b_{m}x^m + ... + b_0) \\
+			& = (a_n(b_mx^m + ... + b_0))^n +(a_{n-1}(b_mx^m + ... +
+			b_0))^{n-1} +   ... + a_0\
+		\end{align*}
+		So we can see that the highest term in the polynomial will be
+			$$a_nb_mx^{nm}$$
+			and because $n$ and $m$ are the orders of $f,g$ we
+		know that $a_n,b_m \neq 0$. Because there are no zero
+		divisors this implies that $a_nb_m \neq 0$.
+		\end{proof}
+		\item Show, by example that for a commutative ring $R$ it is
+			possible that $deg(fg) < deg(f) + deg(g)$\\
+			For $f(x), g(x) \in Z_4[x]$ let $f(x) = 2x, g(x) = 2$
+			we can see $f(x)g(x) = 0$.
+		\end{enumerate}
+	\item[21] Let $f(x)$ belong to $F[x]$ where $F$ is a field let $a$ be a
+		zero of $f(x)$ of multiplicity $n$ and write $f(x) = (x-a)^nq(x)$.
+		If $b \neq a$ is a zero of $q(x)$, show that
+		$b$ has the same multiplicity as a zero of $q(x)$ that it does for
+		$f(x)$. \\
+		Let $n$ be the multiplicity of $f(x)$'s zero at $b$. 
+		By the factor theorem if $ f(b) = 0 $ then $ (x-b) | f(x) $
+		because $x-b$ does not divide $x-a$, it is a factor of
+		$q(x)$ so the multiplicity of $q(x)$ at $b$ is not less then
+		that of $f(x)$ at $b$, and because $q(x)$ is a factor of $f(x)$ it 
+		also must be no greater.
+
+		%If $n>1$ then the quotient of this division is still divisible
+		%by $x-b$. So by induction $ (x-b)^n | q(x) $
+		%$$f(b) = (a-b)^nq(b) = (a-b)^n0 = 0$$
+		%So by the factor theorem because $q(b) = 0$, 
+		%$$ (x-b)| f(x) \Rightarrow (x-b)| (a-b)^nq(x) \Rightarrow
+		%(x-b)|q(x) $$
+
+
+		%So again by the factor theorem there exists some $m$ and $h(x)$ such that $h(b) \neq 0$.
+		%$f(x) =$ Write $q(x) = (x-b)^mh(x)$.
+		%We can see that 
+	\item[33]
+		Consider the homomorphism $\bar\phi: Z \rightarrow Z_M $ given
+		by the mapping $ \bar\phi(x) \rightarrow x \text{ mod } m $. We
+		know this is a valid homomorphis because modulo addition and 
+		multiplication preserve the properties of a homomorphism.
+
+		By question $11$ this implies that $\phi : Z[x] \rightarrow
+		Z_m[x]$ is also a homomorphism.
+	\item[46]
+		Prove that $Q[x]/<x^2 -2>$ is a ring isomorphism to $Q[\sqrt2]
+		= \{a + b\sqrt2 | a,b \in Q \}$. \\
+		Consider the homomorphism $\phi : Q[x] \rightarrow Q[\sqrt2]$
+		given by the mapping $\phi(q(x)) = q(\sqrt2)$. $\phi$ is well
+		defined
+		$$\phi(a(x) + b(x)) = a(\sqrt2) + b(\sqrt2) = \phi(a(x)) +
+		\phi(b(x))$$
+		$$\phi(a(x)b(x)) = a(\sqrt2)b(\sqrt2) = \phi(a(x))\phi(b(x))$$
+		In addition if $\phi(a(x)) = 0$ then $a(\sqrt2) = 0$, this means
+		that either $a(x) = 0$ or $a(x) | (x - \sqrt2)$.
+		Implying that any element of $Q[x]$ divisible by $(x-\sqrt2)$
+		gets mapped to $0$ in $Q(\sqrt2)$ so 
+		$$\text{ Ker } \phi = <x^2-2>$$
+		Also note that $\phi$ is onto as for all $ q \in Q[\sqrt2]$
+			$$  q = a + b\sqrt2 $$
+		because $a,b \in Q$
+			$$ ax+b =  \phi^{-1}(q) \in Q[\sqrt2] $$
+		So $\phi(Q[x]) \approx  Q[\sqrt2] $. By the first isomorphism
+		theorem 
+		$$ Q[x]/\text{Ker}\phi \approx Q[x]/<x^2+2> \approx Q[\sqrt2] $$
+	\item[50]
+		Let $R$ be a ring and $x$ be an indeterminate. Prove that the
+		rings $R[x]$ and $R[x^2]$ are ring-isomorphic.
+		\begin{proof}
+		Consider the mapping $\phi: R[x] \rightarrow R[x^2]$ given by
+			function composition with $x^2$ that is to say
+		$\phi(f(x)) \rightarrow f(x^2)$  this is a homomorphism
+		by question 21. 
+		We can see that for any $g$ in $R[x^2]$, 
+		$$g(x) = a_n(x^{2})^n + a_{n-1}(x^{2})^{n-1} + ... + a_0$$
+		there exists a unique
+		$$\phi^{-1}(g(x)) = a_nx^n + a_{n-1}x^{n-1} + ... + a_0 \in R[x]$$
+		So $\phi$ is one to one and onto.
+		\end{proof}
+	\item[GAP 16.1]
+		Use GAP to factor $x^{p-1}$ in $Z_p[x]$ for $p = 3,5,7,11$.\\
+		$p = 3$
+			$$x+1, x+2$$
+		$p = 5$
+			$$x+1, x-1, x^2 +1$$
+		$p = 7$
+			$$x+1, x+2, x+3, x+4, x+5, x+6$$
+		$p = 11$
+			$$x+1, x+2 ... x+11$$
+	\item[GAP 16.2]
+		Make a conjecture:
+		$x^{p-1}-1$ is has every nonzero element of $Z_p[x]$ as a
+		factor.
+	\item[GAP 16.3]
+	\item[GAP 16.4]
+	\item[GAP 16.5]
+	\item[GAP 16.6]
+	\item[D2L Question] Determine all the automorphisms of $Z[x]$, the ring of polynomials 
+with integer coefficients.
+
+\end{description}
+\end{document}
+

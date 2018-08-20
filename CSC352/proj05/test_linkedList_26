@@ -1,0 +1,11 @@
+print          # this testcase will test to see if you handle
+print          # a line full of spaces correctly.  This should
+print          # be seen by your program as a non-empty line, but
+print          # also as one with a non-valid command; thus, you
+print          # should print an error, but then *CONTINUE RUNNING*
+print          # below, we have a line like that - and then we have
+print          # a trailing print, just to make sure that you didn't
+print          # kill your progrram on this error.  Here's the blank line:
+                          
+print          # to make sure you didn't die
+

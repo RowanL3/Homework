@@ -1,0 +1,6 @@
+windows :: Int -> [a] -> [[a]]
+windows n xs | n <= length xs = (take n xs) : windows n (tail xs)
+	     | otherwise      = [] 
+
+mapAllPairs f xs = [f x y| x <- xs, y <- xs]
+

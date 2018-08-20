@@ -1,0 +1,52 @@
+\documentclass[11pt]{article}
+
+\usepackage{scrextend}
+\usepackage[a4paper, margin = 1.25in,footskip =0.25in]{geometry}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amstext} 
+\usepackage{array}
+
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\graphicspath{ {images/} }
+
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcolumntype{L}{>{$}l<{$}} % math-mode version of "l" column type
+\begin{document}
+
+
+\begin{flushleft}
+Rowan Lochrin \\
+MATH415B - Klaus Lux \\
+4/8/18 \\
+Homework 9
+\end{flushleft}
+
+\begin{description}
+\section{Chapter 22}
+\item[28] Draw the subfield lattice of $GF(3^{18})$ and of $GF(2^30)$.
+\item[32]
+\item[35]
+\section{Chapter 23}
+\item[10]
+\section{Chapter 32}
+\item[5]
+\item[7]
+\item[10]
+\item[11]
+\item[16]
+\end{description}
+\end{document}

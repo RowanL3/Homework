@@ -1,0 +1,165 @@
+\documentclass[11pt]{article}
+
+\usepackage{scrextend}
+\usepackage[a4paper, margin = 1in,footskip =0.25in]{geometry}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\graphicspath{ {images/} }
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+
+\begin{document}
+\begin{flushleft}
+	Rowan Lochrin \\
+	MATH415B - Klaus Lux \\
+	1/29/18 \\
+	Homework 2
+\end{flushleft}
+\begin{description}
+	\item[10] If $A$,$B$ are ideals in a ring $R$ show that $A+B = \{a+b|a\in A b \in
+	B \}$ is an ideal in $R$.\\
+	Consider $x \in (A+B)$, for any $r \in R$.
+		$$ rx = r(a+b) = ra + rb \text{ for some } a \in A, b \in B$$
+		Because $A,B$ are ideals $ra \in A$ and $rb \in B$, meaning $rx
+		\in (A+B)$,  $(A+B)$ is an ideal in $R$.
+
+	\item[12] If $A$,$B$ are ideals in a ring $R$ show that $AB = \{a_1b_1 +
+		a_2b_2 +...+a_nb_n |a_i\in A b_i \in B\}$ is an ideal.\\
+		First note that $a_1b_1 \in A$ (As $B \subseteq R$) so for any
+		$x \in AB$, $r \in R$
+		\begin{align*}
+			rx & = r(a_1b_1 + a_2b_2 +...+a_nb_n) \\
+			   & = ra_1b_1 + ra_2b_2 +...+ra_nb_n \\
+			   & = a_1' + a_2' ... + a_n' \text { for some }
+			   a_1,a_2...,a_n \in A
+		\end{align*}
+		And from question 10 we 
+		know that $a_1 + a_2 \in (A+A) = A$ so by induction:
+			$$ rx = a_1' + a_2'+ ... + a_n' \in A$$
+	\item[23] Verify that $R/I$ from example $12$ has $16$ elements.\\
+		Note that for any matrix $a \in R$.
+		$$ a = \begin{bmatrix} a_1 & a_2 \\ a_3 & a_4 \end{bmatrix} =
+		 \begin{bmatrix} 2q_1 & 2q_2 \\ 2q_3 & 2q_4 \end{bmatrix} +
+		 \begin{bmatrix} r_1 & r_2 \\ r_3 & r_4 \end{bmatrix} $$
+			 For some $q_i,r_i $ such that $a_i = 2q_i + r_i, 0 \leq r_i < 2$
+			 meaning $$ a + I =  
+		 \begin{bmatrix} r_1 & r_2 \\ r_3 & r_4 \end{bmatrix} + I $$
+			 so because there are $2$ possible integer choices for
+			 each $r$ value there are $2^4 = 16$ distinct cosets in
+			 the factor group $R/I$.
+	\item[29] In $Z[x]$ the ring of polynomials with integer coefficients, let $ I = \{f(x) \in
+		Z[x]|f(0) = 0 \} $. Prove that $ I = <x> $.
+	\begin{proof}
+		We can see that for any polynomial $p(x) \in Z[x]$, $ p(x)  x $
+		evaluated at $0$ is $p(0)  0 = 0$ so $ <x> \subseteq I $. We
+		now seek to prove the other direction.\\
+		If $p(x) \in I$, then $p(0) = 0$, so we know that there are no
+		constant terms in the polynomial meaning that either $p(0) = 0$
+		or for $a_1,a_2 ..., a_n \in \Z$ (for some postive $n$)
+		$$ p(x) = a_nx^n+a_{n-1}x^{n-1} +... +a_1x = (a_nx{n-1} +
+		a_{n-1}x^{n-2} + ... + a_1)x $$
+		and $(a_nx{n-1} + a_{n-1}x^{n-2} + ... + a_1) \in Z[x]$ so $p(x)
+		\in <x>$. Meaning $I \subseteq <x>$.
+	\end{proof}		
+	\item[34] In $Z[x]$ the ring of integers with polynomial 
+		with integer coefficients, let $ I = \{f(x) \in
+		Z[x]|f(0) = 0 \} $. Prove that $ I $ is not a maximal ideal.
+
+	\begin{proof}
+		Consider the ideal $ I'  = \{f(x) \in Z[x]|f(n) = 0\} $. For at
+		least one $n \in \Z$.
+		We know that this is an ideal because for $f(x) \in I', g(x) \in
+		R$
+			$$ f(n)g(n) = 0g(n) = 0 $$
+		So the polynomial $ f(x)g(x) $ has a $0$ at $n$ and is also in
+		$I'$
+		 
+		Note that $I'$ contains all functions with at least one zero
+		 so $I' \neq R$ and $I' \neq I$ but $I \subset I'$.
+	\end{proof}
+\item[37] In $Z[x]$, the ring of polynomials with integer coefficients, let $I =
+	< x, 2 >$ be an ideal.
+	\begin{enumerate}
+	\item Prove $<x, 2> = \{f(x) \in Z[x] | f(0) \text{ is even}\}$
+		\begin{proof}
+			If $f(x) \in < x ,2> $, $f(x)$ has the form
+		$$ f(x) = g(x)x + 2h(x)$$
+		For some $g(x),h(x) \in Z[x]$, so $f(0) = 2h(0)$, and
+		because $h(0) \in Z$ we know that $f(0)$ is even so
+		$f(x) \in I, <x,2> \subseteq I$\\
+		If $f(x) \in I$
+		\begin{align*}
+			f(x) &= a_1x + a_2x^2 + ... a_nx^n + 2b\\
+			&= (a_1 + a_2x^1 + ... a_nx^{n-1})x+ 2b
+		\end{align*}
+		So $f(x) \in <x,2> , I \subseteq <x,2>$
+		\end{proof}
+	\item Is $I$ prime? Yes. If $ f(x) = g(x)h(x) $, for $f(x) \in I$, $g(x)
+		, h(x) \in Z[x]$
+			$$f(0) | 2 \Rightarrow g(0) |2 \text{ or } h(0) | 2$$
+		so either $h(x) \in I$ or $g(x) \in I$.
+	\item Is $I$ maximal? 
+		Yes assume there is an ideal $I'$ such that $I \subset I', I \neq I'$,
+			so there is some $f(x) \notin I, f(x) \in I'$. From (1)
+			we know
+		$f(x)$ is not a polynomial that evaluates to an even integer at
+			$0$ so $f(x) + 1$ does. Implying $(f(x) + 1) \in I$ (and
+		therefore in $I'$) so
+			$$ (f(x) + 1) - f(x) = 1 \in  I' $$
+			meaning for all $ h(x) \in Z[x] $
+			$$ 1h(x) = h(x) \in I' $$
+			Implying $I' = Z[x]$
+		%$$ f(x) = a_nx^n + a_{n-1}x^{n-1} +... + a_1x + 2k + 1 $$
+		%for some $a_n, ... ,a_1,k \in Z$.
+	\end{enumerate}
+\item[41] For any ideal $I$ of $Z$,let $d$ be the smallest integer that divides
+	every element of $I$, we can see that $I \subseteq <d>$ (by our
+	definition of division). For any $x \in <d>$ 
+	then there exists some $q \in I$ such that $x = dq$.
+	So by the definition of an ideal $x \in I$.
+
+\item[54] Let $R$ be a commutative ring without unity, and let $a \in R$.
+	Describe the smallest ideal $I$ of $R$ that contains $a$.
+	Because $\forall x \in R, xa \in I $, 
+	$$ <a> \subseteq I $$
+	Now again by the properties of ideals we must include every element that
+	is the product of an element in $<a>$ and an element in $R$. So
+	$$<<a>> \subseteq I$$
+	we must continue in this way until no new elements must be considered
+	when we take the span of the elements in the previous set (e.g. If
+	$<<a>> = <<<a>>>$) once this is the case the set we have is an ideal.
+	Because we have never added elements that are not explicitly required by
+	the properties of an ideal we know that this ideal is minimal.
+	 We can see from this construction of the minimal ideal that every element of
+	 the minimal ideal is a product of $a$.
+	a product of $a$.
+\item[63] Let $R$ be a commutative ring with unity and let $a,b \in R$. Show
+	that $<a,b>$ the smallest ideal of $R$ containing $a$ and $b$.
+	Because $R$ has unity
+	$$ a = 1_Ra + 0b \in I$$
+	$$ b = 0b + 1_Rb \in I$$
+	If an ideal $I$ contains $a, b$ for any $r,s$ in $R$
+		$$ra, (-1)bs \in I$$
+	By the ideal test we know that
+	$$ ra - (-1)sb \in I \Rightarrow ra+sb \in I$$
+
+
+\end{description}
+
+
+
+\end{document}
+

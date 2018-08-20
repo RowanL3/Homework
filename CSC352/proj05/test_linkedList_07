@@ -1,0 +1,10 @@
+          print           
+   insert Foo -10     
+          print           
+   insert Bar -10     
+          print           
+      removeHead    
+          print           
+ delete Foo    
+    print  
+

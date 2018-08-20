@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Assignment 1</title>
+	<style>
+	#blue_bar_chart {
+		fill: blue;	
+	}
+	#red_bar_chart {
+		fill: red;	
+	}
+	body {
+	    background-color: linen;
+	}
+	h1 {
+	    color: maroon;
+	    margin-left: 40px;
+	}
+	h2 {
+	    color: maroon;
+	    margin-left: 40px;
+	}
+	</style>
+  </head>
+<body>
+<h1>Assignment 1</h1>
+<h2> Rowan Lochrin </h2>
+<hr />
+<h3>Blue Bar Chart</h3>
+<svg width="400" height="400" id="blue_bar_chart">
+	<rect x="0" y="250" width="50" height="150" stroke="black" stroke-width="2" />
+	<rect x="50" y="175" width="50" height="225" stroke="black" stroke-width="2" />
+	<rect x="100" y="175" width="50" height="225" stroke="black" stroke-width="2" />
+	<rect x="150" y="100" width="50" height="300" stroke="black" stroke-width="2" />
+	<rect x="200" y="100" width="50" height="300" stroke="black" stroke-width="2" />
+	<rect x="250" y="175" width="50" height="225" stroke="black" stroke-width="2" />
+	<rect x="300" y="175" width="50" height="225" stroke="black" stroke-width="2" />
+	<rect x="350" y="250" width="50" height="150" stroke="black" stroke-width="2"/>
+</svg> 
+ 
+<h3>Red Bar Chart</h3>
+<svg width="400" height="400" id="red_bar_chart">
+	<rect x="0" y="250" width="50" height="150" stroke="black" stroke-width="2" />
+	<rect x="50" y="175" width="50" height="225" stroke="black" stroke-width="2" />
+	<rect x="100" y="175" width="50" height="225" stroke="black" stroke-width="2" />
+	<rect x="150" y="100" width="50" height="300" stroke="black" stroke-width="2" />
+	<rect x="200" y="100" width="50" height="300" stroke="black" stroke-width="2" />
+	<rect x="250" y="175" width="50" height="225" stroke="black" stroke-width="2"/>
+	<rect x="300" y="175" width="50" height="225" stroke="black" stroke-width="2" />
+	<rect x="350" y="250" width="50" height="150" stroke="black" stroke-width="2" />
+</svg> 
+<h3>Line Line Chart</h3>
+<svg width="400" height="400" id="line_line_chart">
+	<line x1="25" y1="400" x2="75" y2="250" stroke="black" stroke-width="5" />
+	<line x1="75" y1="250" x2="125" y2="250" stroke="black" stroke-width="5" />
+	<line x1="125" y1="250" x2="175" y2="100" stroke="black" stroke-width="5" />
+	<line x1="175" y1="100" x2="225" y2="100" stroke="black" stroke-width="5" />
+	<line x1="225" y1="100" x2="275" y2="250" stroke="black" stroke-width="5" />
+	<line x1="275" y1="250" x2="325" y2="250" stroke="black" stroke-width="5" />
+	<line x1="325" y1="250" x2="375" y2="400" stroke="black" stroke-width="5" />
+</svg> 
+<h3>Path Line Chart</h3>
+<svg width="400" height="400" id="path_line_chart">
+	 <path d="M25 400 
+	 	L75 250 
+		L125 250 
+		L175 100 
+		L225 100 
+		L275 250 
+		L325 250 
+		L375 400"
+	fill="none" stroke="black" stroke-width="5"/>
+</svg> 
+<h3>Pie Chart</h3>
+<svg width="400" height="400" id="pie_chart">
+	 <circle cx="200" cy="200" r="175" stroke="black" stroke-width="4" fill="yellow" />	
+	 <path d="M200 200 
+	 l0 -175 
+	 a175,175 0 0,1  175,175  z"
+	 fill="red" stroke="black" stroke-width="5"/>
+</svg> 
+</body>
+</html>
+

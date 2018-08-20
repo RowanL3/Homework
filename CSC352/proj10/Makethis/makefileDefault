@@ -1,0 +1,28 @@
+AaaaaaaaaaaaaAaaaaaaaaaaaaAaaaaaaaaaaaaAaaaaaaaaaaaaAaaaaaaaaaaaa: B C 	E  	  F 
+	1:command to build A from B,C,E,F
+	2:command to build A from B,C,E,F
+
+B: D
+	     co mmand to build B from D
+C 	: 	D
+	co mmand to build C from D
+
+    
+   	 		 			 
+  	D  : E 
+	1:com mand to build D from E
+	             2:com mand to build D from E
+  E  : F  		 GGG
+			command to build E from F,G
+ F: 	GGG 	 H
+	1:co mmand to build F from G,H
+	2:com mand to build F from G,H
+	3:command to build F from G,H
+	4:comm and to build F from G,H
+	5:command to build F from G,H
+GGG: 
+	command to build G
+  H : 
+	command to build H
+y: AaaaaaaaaaaaaAaaaaaaaaaaaaAaaaaaaaaaaaaAaaaaaaaaaaaaAaaaaaaaaaaaa
+	1:command to build fucking y

@@ -1,0 +1,276 @@
+Attributes selected: 1,5,8
+CFS
+
+5NN:
+56/77 %72.7272727273
+62/77 %80.5194805195
+62/77 %80.5194805195
+53/77 %68.8311688312
+60/77 %77.9220779221
+57/77 %74.025974026
+59/77 %76.6233766234
+50/76 %65.7894736842
+52/76 %68.4210526316
+58/76 %76.3157894737
+74.1695146958
+
+1NN:
+56/77 %72.7272727273
+55/77 %71.4285714286
+54/77 %70.1298701299
+53/77 %68.8311688312
+58/77 %75.3246753247
+51/77 %66.2337662338
+55/77 %71.4285714286
+50/76 %65.7894736842
+47/76 %61.8421052632
+53/76 %69.7368421053
+69.3472317157
+
+NB:
+62/77 %80.5194805195
+67/77 %87.012987013
+64/77 %83.1168831169
+57/77 %74.025974026
+62/77 %80.5194805195
+60/77 %77.9220779221
+64/77 %83.1168831169
+49/76 %64.4736842105
+49/76 %64.4736842105
+60/76 %78.9473684211
+77.4128503076
+
+ONE-R
+=== Summary ===
+
+Correctly Classified Instances         539               70.3655 %
+Incorrectly Classified Instances       227               29.6345 %
+Kappa statistic                          0.3159
+Mean absolute error                      0.2963
+Root mean squared error                  0.5444
+Relative absolute error                 65.2353 %
+Root relative squared error            114.2397 %
+Total Number of Instances              766
+
+
+
+ZERO-R
+=== Summary ===
+
+Correctly Classified Instances         499               65.1436 %
+Incorrectly Classified Instances       267               34.8564 %
+Kappa statistic                          0
+Mean absolute error                      0.4543
+Root mean squared error                  0.4765
+Relative absolute error                100      %
+Root relative squared error            100      %
+Total Number of Instances              766
+
+5NN
+=== Summary ===
+
+Correctly Classified Instances         557               72.7154 %
+Incorrectly Classified Instances       209               27.2846 %
+Kappa statistic                          0.388
+Mean absolute error                      0.3105
+Root mean squared error                  0.4279
+Relative absolute error                 68.3536 %
+Root relative squared error             89.7934 %
+Total Number of Instances              766
+
+
+1NN
+=== Summary ===
+
+Correctly Classified Instances         531               69.3211 %
+Incorrectly Classified Instances       235               30.6789 %
+Kappa statistic                          0.3239
+Mean absolute error                      0.308
+Root mean squared error                  0.5534
+Relative absolute error                 67.8006 %
+Root relative squared error            116.1293 %
+Total Number of Instances              766
+
+DT
+=== Summary ===
+
+Correctly Classified Instances         555               72.4543 %
+Incorrectly Classified Instances       211               27.5457 %
+Kappa statistic                          0.3721
+Mean absolute error                      0.3461
+Root mean squared error                  0.4384
+Relative absolute error                 76.1909 %
+Root relative squared error             92.0036 %
+Total Number of Instances              766
+
+NB
+=== Summary ===
+
+Correctly Classified Instances         588               76.7624 %
+Incorrectly Classified Instances       178               23.2376 %
+Kappa statistic                          0.465
+Mean absolute error                      0.2982
+Root mean squared error                  0.4035
+Relative absolute error                 65.6417 %
+Root relative squared error             84.6772 %
+Total Number of Instances              766
+
+MLP
+=== Summary ===
+
+Correctly Classified Instances         589               76.893  %
+Incorrectly Classified Instances       177               23.107  %
+Kappa statistic                          0.4863
+Mean absolute error                      0.3116
+Root mean squared error                  0.3973
+Relative absolute error                 68.6044 %
+Root relative squared error             83.3817 %
+Total Number of Instances              766
+
+SMO
+=== Summary ===
+
+Correctly Classified Instances         584               76.2402 %
+Incorrectly Classified Instances       182               23.7598 %
+Kappa statistic                          0.4439
+Mean absolute error                      0.2376
+Root mean squared error                  0.4874
+Relative absolute error                 52.3032 %
+Root relative squared error            102.2915 %
+Total Number of Instances              766
+
+non-CFS
+5NN:
+60/77 %77.9220779221
+62/77 %80.5194805195
+65/77 %84.4155844156
+52/77 %67.5324675325
+63/77 %81.8181818182
+53/77 %68.8311688312
+59/77 %76.6233766234
+50/76 %65.7894736842
+48/76 %63.1578947368
+57/76 %75.0
+74.1609706083
+
+1NN:
+49/77 %63.6363636364
+63/77 %81.8181818182
+59/77 %76.6233766234
+51/77 %66.2337662338
+50/77 %64.9350649351
+53/77 %68.8311688312
+57/77 %74.025974026
+47/76 %61.8421052632
+44/76 %57.8947368421
+51/76 %67.1052631579
+68.2946001367
+
+NB:
+60/77 %77.9220779221
+64/77 %83.1168831169
+63/77 %81.8181818182
+54/77 %70.1298701299
+61/77 %79.2207792208
+54/77 %70.1298701299
+60/77 %77.9220779221
+51/76 %67.1052631579
+51/76 %67.1052631579
+56/76 %73.6842105263
+74.8154477102
+
+ZERO-R:
+=== Summary ===
+
+Correctly Classified Instances         500               65.189  %
+Incorrectly Classified Instances       267               34.811  %
+Kappa statistic                          0
+Mean absolute error                      0.454
+Root mean squared error                  0.4764
+Relative absolute error                100      %
+Root relative squared error            100      %
+Total Number of Instances              767
+
+ONE-R
+=== Summary ===
+
+Correctly Classified Instances         543               70.7953 %
+Incorrectly Classified Instances       224               29.2047 %
+Kappa statistic                          0.303
+Mean absolute error                      0.292
+Root mean squared error                  0.5404
+Relative absolute error                 64.3283 %
+Root relative squared error            113.4429 %
+Total Number of Instances              767
+
+IBK-1
+=== Summary ===
+
+Correctly Classified Instances         535               69.7523 %
+Incorrectly Classified Instances       232               30.2477 %
+Kappa statistic                          0.3382
+Mean absolute error                      0.303
+Root mean squared error                  0.5492
+Relative absolute error                 66.7515 %
+Root relative squared error            115.2845 %
+Total Number of Instances              767
+
+IBK-5
+=== Summary ===
+
+Correctly Classified Instances         580               75.6193 %
+Incorrectly Classified Instances       187               24.3807 %
+Kappa statistic                          0.4566
+Mean absolute error                      0.2987
+Root mean squared error                  0.4149
+Relative absolute error                 65.7899 %
+Root relative squared error             87.0909 %
+Total Number of Instances              767
+
+NB
+=== Summary ===
+
+Correctly Classified Instances         573               74.7066 %
+Incorrectly Classified Instances       194               25.2934 %
+Kappa statistic                          0.4308
+Mean absolute error                      0.2824
+Root mean squared error                  0.4273
+Relative absolute error                 62.2095 %
+Root relative squared error             89.6899 %
+Total Number of Instances              767
+
+DT
+=== Summary ===
+
+Correctly Classified Instances         572               74.5763 %
+Incorrectly Classified Instances       195               25.4237 %
+Kappa statistic                          0.4364
+Mean absolute error                      0.3114
+Root mean squared error                  0.431
+Relative absolute error                 68.5829 %
+Root relative squared error             90.4753 %
+Total Number of Instances              767
+
+MLP
+=== Summary ===
+
+Correctly Classified Instances         576               75.0978 %
+Incorrectly Classified Instances       191               24.9022 %
+Kappa statistic                          0.4421
+Mean absolute error                      0.2931
+Root mean squared error                  0.4176
+Relative absolute error                 64.5587 %
+Root relative squared error             87.6535 %
+Total Number of Instances              767
+
+SMO
+=== Summary ===
+
+Correctly Classified Instances         586               76.4016 %
+Incorrectly Classified Instances       181               23.5984 %
+Kappa statistic                          0.4467
+Mean absolute error                      0.236
+Root mean squared error                  0.4858
+Relative absolute error                 51.9796 %
+Root relative squared error            101.9748 %
+Total Number of Instances              767

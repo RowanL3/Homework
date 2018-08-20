@@ -1,0 +1,14 @@
+print
+insert spurious_removeHead 100
+print
+
+removeHead
+print
+removeHead
+print
+
+insert stillWorking 123
+print
+removeHead
+print
+

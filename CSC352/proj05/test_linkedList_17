@@ -1,0 +1,22 @@
+insert 4_removeHeadTest 4
+print
+insert 3_removeHeadTest 3
+print
+insert 2_removeHeadTest 2
+print
+insert 5_removeHeadTest 5
+print
+insert 1_removeHeadTest 1
+print
+
+removeHead
+print
+removeHead
+print
+removeHead
+print
+removeHead
+print
+removeHead
+print
+

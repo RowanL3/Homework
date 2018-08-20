@@ -1,0 +1,6 @@
+A:B
+	command1
+B:C 
+	command2
+C:A 
+	command3

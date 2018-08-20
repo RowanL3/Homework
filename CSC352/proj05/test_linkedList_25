@@ -1,0 +1,9 @@
+print
+
+insert maxLenName123456789 123           # should be accepted, num=123
+print
+
+insert maxLenName1234567890 123          # should be rejected, name too long
+print                                    # a common bug would be to allow it,
+print                                    # with num = 0
+

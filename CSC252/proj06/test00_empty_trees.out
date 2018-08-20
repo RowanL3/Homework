@@ -1,0 +1,20 @@
+Instruction Index: 0
+  command: c
+  treeNo : 0
+  param  : -1
+0
+Instruction Index: 1
+  command: s
+  treeNo : 0
+  param  : 100
+100 NOT found
+Instruction Index: 2
+  command: t
+  treeNo : 0
+  param  : -1
+
+Instruction Index: 3
+  command: T
+  treeNo : 0
+  param  : -1
+

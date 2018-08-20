@@ -1,0 +1,100 @@
+\documentclass[11pt] {article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{array}
+\usepackage{enumitem}
+\newcolumntype{C}{>$c<$}
+\newcolumntype{L}{>$l<$}
+
+\begin{document}
+\begin{flushleft}
+Rowan Lochrin\\
+MATH3066\\
+Homework 1\\
+26/4/17\
+\end{flushleft}
+\begin{enumerate}
+\item 
+\begin{enumerate}
+\item The integer 57 is Prime (Well defined False)
+\item The integer 57 is a Grothendieck prime. (Well defined True)
+\item London is in England. (Undefined)
+\item This sentence is False (Undefined)
+\end{enumerate}
+\item
+\begin{enumerate}
+\item If the sun is shining we are headed to the surf. \newline
+\textit{Converse:} We are headed to the surf so the sun is shining. \newline
+\textit{Contrapositive:} We are not headed to the surf so the sun is not shining.
+\item If I have listened attentively I will do well in the exam. \newline
+\textit{Converse:} If I did well on the exam I have listened closely. \newline
+\textit{Contrapositive:} If I did not do well on the exam I have not listened closely.
+\item It is necessary to have a valid passport to log on to my computer. \newline
+\textit{Converse:} If I logged on to my computer I had a valid password. \newline
+\textit{Contrapositive:} If I didn't have a valid passport I have not logged in to my computer. 
+\item Only if my attendance is recorded will I be bothered coming to tutorials.\newline
+\textit{Converse:} If I am coming to tutorial my attendance is being recorded \newline
+\textit{Contrapositive:} If I am not coming into tutorials my attendance is not being recorded.
+\end{enumerate}
+\item
+\begin{enumerate}
+\item
+\[
+\begin{array}{C|C|C|C|C}
+$P$ & $Q$ & $P \Rightarrow Q$ & $[P \land (P\Rightarrow Q)] $ &$ [P \land (P\Rightarrow Q)] \Rightarrow Q$\\ \hline
+T & T & T & T &  T\\
+T & F & F & F & T\\
+F & T & T & F & T\\
+F & F & T & F & T\\
+
+\end{array}
+\]
+\item
+\[
+\begin{array}{C|C|C|C|C|C|C}
+$P$ & $Q$ & $\sim P$ & $\sim Q $ &$ P \Rightarrow Q $ & $ \sim  Q \land (P\Rightarrow Q) $& $ [\sim Q \land (P\Rightarrow Q)] \Rightarrow \sim P$\\ \hline
+T & T & F & F & T & F & T\\
+T & F & F & T & F & F  & T\\
+F & T & T & F & T & T & T\\
+F & F & T & T & T & T & T\\
+
+\end{array}
+\]
+\end{enumerate}
+\item
+\begin{enumerate}
+\item
+\[
+\begin{array}{C|C|C|C}
+$P$ & $Q$ & $R$ & $(P \lor Q) \lor R $\\ \hline
+T & T & T & T\\
+T & T & F & T\\
+T & F & T & T\\
+T & F & F & T\\
+F & T & T & T\\
+F & T & F & T\\
+F & F & T & T\\
+F & F & F & F\\
+\end{array}
+\]
+\item
+\[
+\begin{array}{C|C|C|C}
+$P$ & $Q$ & $R$ & $(P \land Q) \lor R $\\ \hline
+T & T & T & T\\
+T & T & F & T\\
+T & F & T & T\\
+T & F & F & F\\
+F & T & T & T\\
+F & T & F & F\\
+F & F & T & T\\
+F & F & F & F\\
+
+\end{array}
+\]
+\end{enumerate}
+\end{enumerate}
+ \end{document}

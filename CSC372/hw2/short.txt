@@ -1,0 +1,22 @@
+File: hw2/short.txt
+Author: Rowan Lochrin
+Date: 9/13/17
+For: CSC372
+
+1.
+a) (equal? '(a b) '(a b)) = #t
+b) (eqv? '(a b) '(a b)) = #f
+c) (eq? '(a b) '(a b)) = #f
+d) (equal? foo foo) = #t
+f) (eqv? foo foo) = #t
+e) (eq? foo foo) = #t 
+g) (equal? foo '(a b)) = #t
+h) (eqv? foo '(a b)) = #f
+i) (eq? foo '(a b)) = #f
+j) (equal? '((1 2 (3))) '((1 2 (3)))) = #t
+
+2.
+(append '(1 2) '(a b)).
+	1 (append '(2) '(a b))
+		1 2 (append '() '(a b))
+			Returns:(1 2 a b)

@@ -1,0 +1,22 @@
+insert longList1 1
+print
+insert longList2 2
+print
+insert longList3 3
+print
+insert longList4 4
+print
+insert longList5 5
+print
+
+delete longList1
+print
+delete longList5
+print
+delete longList3
+print
+delete longList2
+print
+delete longList4
+print
+

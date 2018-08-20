@@ -1,0 +1,161 @@
+#Author:Rowan Lochrin
+#Assignment:CS252 Project 2
+#File:proj04.s
+
+.text
+printRev:
+    # standard prologue
+    addiu   $sp, $sp, -24
+    sw      $fp, 0($sp)
+    sw      $ra, 4($sp)
+    addiu   $fp, $sp, 20
+
+    # vars for this function.
+
+    # $t1 = strlen
+    # $t3 = pointer to the string (stays at start of string)
+    # $t4 = pointer to the string in stack
+    # $t5 = start of the string in the stack
+
+    add $t1, $zero $zero            # $t1 = 0
+    add $t3, $a0, $zero             # $t3 = pointer to input string
+                                    
+    add     $t5, $zero, $sp         # used to restore the stack pointer when the function raps up
+    addi    $sp, $sp, -4            # allocate enough space for the null char
+    sb      $zero, 0($sp)           # add a null char at the end of the strings space in the stack
+    
+save_loop:                          # loaps throught the string in reverse orderxw
+    lb      $t0, 0($t3)             # load byte from str
+    beq     $t0, $zero, end_save_loop # go until we hit the null term
+
+    addi    $sp, $sp, -1            # make room for the char on the stack
+    sb      $t0, 0($sp)             # save byte into stack
+    addi    $t3, $t3, 1
+    addi    $t1, $t1, 1             # inc total
+    j       save_loop
+
+end_save_loop:
+    add     $a0, $zero, $sp         # loads the pointer to the reversed into a0
+    
+    # round the stack pointer down to a multiple of 4
+    srl     $sp, $sp, 2             # turn off last two bits of $sp
+    sll     $sp, $sp, 2
+    addi    $sp, $sp, -4            # adds -4
+
+    #save $t1
+    addi    $sp, $sp, -4
+    sw      $t1, 0($sp)            # save the strlen for later user
+
+    jal     printStr                # print the string
+
+    lw      $v0, 0($sp)            # load strlen into v0 (return value)
+    # restore the stack pointer to its position before the string was added
+    add     $sp, $t5, $zero
+
+    # standard epilogue
+    lw      $ra, 4($sp)
+    lw      $fp, 0($sp)
+    addiu   $sp, $sp, 24
+    jr      $ra
+
+multiply:
+    # standard prologue
+    addiu   $sp, $sp, -24
+    sw      $fp, 0($sp)
+    sw      $ra, 4($sp)
+    addiu   $fp, $sp, 20
+
+    # vars for this function.
+
+    # $t1 = running total
+    # $t2 = shift amount
+    # $t3 = shifted num
+    # $t4 = lsb of $a1
+    # $t5 = 32 (used to tell us when the mul loop should be over)
+
+    add     $t1, $zero, $zero       # $t1 = 0
+    add     $t2, $zero, $zero       # $t2 = 0
+    addi    $t5, $zero, 32
+
+mul_loop:
+    beq     $t2, $t5, end_mul_loop  # break when $t2 = 32
+    andi    $t4, $a1, 1             # get lsb of a1
+    # skip adding to if the shifted num if of a1 lsb is 0 
+    beq     $t4, $zero, skip_add 
+    sllv    $t3, $a0, $t2
+    addu    $t1, $t1, $t3           # add shifted amount
+skip_add:
+    srl     $a1, $a1, 1             # use next lsb of a1
+    addi    $t2, $t2, 1             # inc shift amount
+    j       mul_loop
+end_mul_loop:
+    add     $v0, $t1, 0
+
+    # standard epilogue
+    lw      $ra, 4($sp)
+    lw      $fp, 0($sp)
+    addiu   $sp, $sp, 24
+    jr      $ra
+
+nibbleScan:
+    # standard prologue
+    addiu   $sp, $sp, -24
+    sw      $fp, 0($sp)
+    sw      $ra, 4($sp)
+    addiu   $fp, $sp, 20
+
+    add     $t1, $zero, $zero       # $t1 = loop_index
+    add     $t2, $a0, $zero         # $t2 = word we're working with
+    add     $t3, $zero, $zero       # $t3 = the 4 lsb of the word
+    add     $t4, $zero, $zero       # $t4 = number of non-zero nibbles
+    addi    $t7, $zero, 8           # $t7 = 8 (constant)
+
+    addi    $sp, $sp, -16           # allocate space for t-regs that we will need to save
+print_nibble_loop:
+    beq     $t1, $t7, end_print_nibble_loop
+    andi    $t3, $t2, 15            # get the 4 lsb's of the word
+
+    beq     $t3, $zero, zero_nibble # skip printing and inc the nibble if it's zero
+    addi    $t4, $t4, 1             # inc non-zero nibble count
+    #pack up our t-regs for the function call
+    
+
+    sw      $t1, 0($sp)             # save t-regs to the stack
+    sw      $t2, 4($sp)
+    sw      $t3, 8($sp)
+    sw      $t4, 12($sp)
+
+    add     $a0, $t1, $zero         # load index the nib into printNibble
+    add     $a1, $t3, $zero         # load nib into printNibble
+
+    jal     printNibble
+
+    lw      $t1, 0($sp)             # load t-regs from the stack
+    lw      $t2, 4($sp)          
+    lw      $t3, 8($sp)
+    lw      $t4, 12($sp)
+
+    addi    $t7, $zero, 8           # $t7 = 8 (constant) no need save it 
+zero_nibble:
+
+    srl     $t2, $t2, 4             # shift to give us 4 new lsb's
+    addi    $t1, $t1, 1             # inc loop index
+    j       print_nibble_loop
+
+end_print_nibble_loop:
+    addi    $sp, $sp, 16            #deallocate the space for the t-regs
+    add     $v0, $t4, $zero
+
+    # standard epilogue
+    lw      $ra, 4($sp)
+    lw      $fp, 0($sp)
+    addiu   $sp, $sp, 24
+    jr      $ra
+
+
+
+
+
+
+
+

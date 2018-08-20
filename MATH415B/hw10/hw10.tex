@@ -1,0 +1,180 @@
+\documentclass[11pt]{article}
+
+\usepackage{scrextend}
+\usepackage[a4paper, margin = 1.25in,footskip =0.25in]{geometry}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amstext} 
+\usepackage{array}
+
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\graphicspath{ {images/} }
+
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcolumntype{L}{>{$}l<{$}} % math-mode version of "l" column type
+\newcolumntype{R}{>{$}r<{$}} % math-mode version of "l" column type
+\newcolumntype{C}{>{$}c<{$}} % math-mode version of "c" column type
+\begin{document}
+
+
+\begin{flushleft}
+Rowan Lochrin \\
+MATH415B - Klaus Lux \\
+4/22/18 \\
+Homework 10 
+\end{flushleft}
+
+\begin{description}
+\section{Chapter 22}
+\item[28] Draw the subfield lattice of $GF(3^{18})$ and of $GF(2^{30})$.
+	\begin{center}
+		\begin{tabular}{R C L}
+			& GF(3^{18}) &\\
+			\swarrow& & \searrow\\
+			GF(3^9)	& &GF(3^2)\\
+			\downarrow & & \downarrow\\
+			GF(3^3) & &\downarrow \\
+			\searrow & & \swarrow \\
+			& GF(3) &\\
+		\end{tabular}
+		\begin{tabular}{R C L}
+			& GF(2^{30}) &\\
+			\swarrow&\downarrow & \\
+			GF(2^2)	& GF(3^{15}) &\\
+			\downarrow &\downarrow & \searrow \\
+			\downarrow & GF(3^3) & GF(3^5) \\
+			\searrow &\downarrow & \swarrow \\
+			& GF(3) &\\
+		\end{tabular}
+	\end{center}
+\item[32]
+	Let $f(x)$ be a cubic irreducible over $Z_p$, where $p$ is a prime.
+		Prove that the splitting field $f(x)$ over $Z_p$ has order $p^3$
+		or $p^6$.
+	\begin{proof}
+	Let $f(a) = 0$ where $a \in E$, some extension field of $Z_p$, then
+		in $Z_p(a)$, $f(x) = (x-a)g(x)$ where $g(x)$ is a degree two
+		polynomial in $Z_p(a)$ if $g(x)$ is reducible then $f(x)$ splits
+		completely in $Z_p(a)$ and because 
+		$Z_p(a) \approx Z_p[x]/<f(x)>$, $|Z_p(a)| = p^3$.
+		If $g(x)$ is not reducible in $Z_p(a)$,
+		let $g(b) = 0$ where $b \in E$ then $f(x)$
+		splits completely in $Z_p(a)(b) = Z_p(a,b)$.
+		Because $Z_p(a)(b) \approx Z_p(a)[x]/<g(x)>$,$|Z_p[x]| = p^6$
+	\end{proof}
+\item[35] 
+	Suppose that $F$ is a field of order $125$ and $F^* = <\alpha>$. Show
+		that $\alpha = -1$.\\
+		Because $F$ is a finite filed $F^* \approx Z_{124}$. Because
+		$<\alpha> = Z_{124}$, $\alpha^i = 1$ for some $i\leq 124$ if
+		$$\{\alpha^1,...,\alpha^{124}\} = \{\alpha^1, ...,
+		\alpha^{i-1}, 1,1\alpha,... \} = \{\alpha^1, ...,\alpha^{i}\} =
+		Z_{124}$$
+		So $i = 124$ and $\alpha^{124} = (\alpha^{62})^2 = 1$ meaning
+		$\alpha^{62} = 1$ or $-1$, and by the above it can't be the
+		former.
+\section{Chapter 23}
+\item[10] Prove that it is impossible to construct a $40^\circ$ angle.\\ 
+	\begin{proof}
+	Note that construction a $40^\circ$ angle would imply that you were
+	also able to create a line of length $\cos40^\circ$.
+	Consider the trig identity
+		$$\cos{3\theta} =  4\cos^3\theta - 3 \cos\theta$$
+	Plugging in $40^\circ$ can see that
+		$$0 = \cos^3 40^\circ - 3 \cos 40^\circ + \frac{1}{2} $$
+	So $\cos40^\circ$ is a zero of the polynomial
+		$$8x^3 + 6x + 1$$
+	Meaning $[Q(\cos40^\circ):Q] = 3$. So there cannot be a series of finite
+		field extensions of degree $2$ that include $\cos40^\circ$.
+	\end{proof}
+\section{Chapter 32}
+\item[5] Let $E$ be an extension field of a field $F$ and let $H$ be a subgroup
+	of $Gal(E/F)$. Show that the fixed field of $H$ is indeed a field.\\
+	For all $\phi \in H$ if $\phi(a) = a$ and $\phi(b) = b$.
+	\begin{align*}
+		\phi(a+b) &= \phi(a)+\phi(b) = a + b\\
+		\phi(a-b) &= \phi(a)-\phi(b) = a - b\\
+		\phi(ab) &= \phi(a)\phi(b) = a b\\
+		\phi(ab^{-1}) &= \phi(a)\phi(b)^{-1} = ab^{-1}
+	\end{align*}
+\item[7]
+	Let $f(x) \in F[x]$ and let the zeros of $f(x)$ be $a_1,a_2,...,a_n$. If
+	$K = F(a_1,a_2,...,a_n)$, show that $Gal(K/F)$ is isomorphic to a group
+	of permutations of the $a_i$'s. \\
+	Because we know that all elements of $F$ are fixed under $\phi\in
+	Gal(K/F)$ so $\phi(0) = 0$, and 
+	\begin{align*}
+		\phi(p(a_i))& = \phi(c_0 +c_1a_i+c_2a_i^2 +...+ c_na_i^n) \\
+			& = \phi(c_0)
+			+\phi(c_1a_i)+\phi(c_2a_i)^2+...+\phi(c_na_i)^n \\
+			& = \phi(c_0) +\phi(c_1) \phi(a_i)+\phi(c_2)\phi(a_i^2)+...+\phi(c_n)\phi(a_i^n) \\
+			& = c_0 +c_1 \phi(a_i)+c_2\phi(a_i)^2+...+c_n\phi(a_i)^n
+			\\
+			& = p(\phi(a_i)) = 0\\
+	\end{align*}
+	Meaning that every member of $Gal(K/F)$ must send every $a_i$ to
+	another root of $p$. So every automorphism of $Gal(K/F)$ corresponds to
+	a permutation of the $a_i$'s.
+\item[10] Let $E= Q(\sqrt2,\sqrt5)$. What is the order of the group $Gal(E/Q)$?
+	What is the order of $Gal(Q\sqrt10/Q)$?\\
+	By the first part of the fundamental theorem of Galois theory,
+	$[Q(\sqrt2,\sqrt5):Q] = |Gal(Q(\sqrt2,\sqrt5)/Q| $ and 
+	$$[Q(\sqrt2,\sqrt5):Q] = [Q(\sqrt2,\sqrt5):Q(\sqrt2)] [Q(\sqrt2):Q] $$
+	Clearly $[Q(\sqrt2):Q] =2 $  we can see $\{1,\sqrt5,\sqrt{10}\}$ is a
+	basis for $Q(\sqrt2,\sqrt5)$ over $Q(\sqrt2)$ so $[Q(\sqrt2,\sqrt5):Q(\sqrt2)]=3 $
+	meaning 
+	$|Gal(Q(\sqrt2,\sqrt5)/Q| = 6$.
+	Also $[Q(\sqrt10):Q] = 2$ so $|Gal(Q(\sqrt10)/Q| = 2$.
+\item[11]
+	Suppose that $F$ is a field of characteristic $0$ and $E$ is the
+	splitting field for for some polynomial over $F$. If $Gal(E/F)$ is
+	isomorphic to $Z_{20} \oplus Z_2$, determine the number of subfields 
+	$L$ of $E$ there are such that 
+	\begin{enumerate}
+		\item $[L:F] = 4$.\\
+			Because there is a one-to-one correspondence between
+			subgroups fields of $E$ containing $F$ and the number of
+			subgroups of $Gal(E/F) $ given by $L \rightarrow
+			Gal(E/L)$ and because $[E:L] = |Gal(E/L)|$ we seek to
+			find the number of subfields $L$ such that $[E:F] =
+			[E:L][L:F]$. By part one of the fundamental therome
+			$[E:F] = |Gal(E/F)| = 40$ so we seek to find subfields
+			$L$ such that $[E:L] = 10$.
+			So we need only to count the 
+			subgroups of $Z_{20}\oplus Z_2$ of order $10$ to determine the 
+			the number of such subfields. There are $3$ subgroups
+			of $Z_{20}\oplus Z_2$ of order $10$.
+		\item $[L:F] = 25$.\\
+			By part one of the fundamental theorem of Galois theory $[L:F] = |Gal(E/F)|/|Gal(L/F)|$ because
+			$|Gal(E/F)| = |Z_{20} \oplus Z_2| =  40 $ clearly there
+			is no integer $n$ such that $25 = 40/n$ so there are no such
+			subfields.
+		
+		\item $Gal(E/L)$ is isomorphic to $Z_5$.\\ There is only one
+			subgroup of $Gal(E/F)$ isomorphic to $Z_5$.
+	\end{enumerate}
+\item[16] Let $p$ be a prime. Suppose that $|Gal(E/F)| = p^2$ draw all possible
+	subfield lattices for fields between $E$ and $F$.\\
+	For every subfield lattice between $E$ and $F$ there exists a
+	corresponding subgroup lattice of $Gal(E/F)$ by lagrange's theorem the
+	only possible subgroups of a group of order $p^2$ are of order $p$ or
+	$1$. So the only three possible subfield lattices between $F$ and $E$ are
+	one with $p$ intermediate fields $P_1,...,P_p$ such that
+	$[P_i:F]=[E:P_i] = p$, one with one intermediate field $P$ with
+	$[P:F]=p$, and the one with no intermediate fields.
+
+\end{description}
+\end{document}

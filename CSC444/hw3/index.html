@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<script src="svg.js"></script> 
+<script src="data.js"></script> 
+
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Assignment 3</title>
+	<style>
+	body {
+	    background-color: linen;
+	}
+	h1 {
+	    color: maroon;
+	    margin-left: 40px;
+	}
+	h2 {
+	    color: maroon;
+	    margin-left: 40px;
+	}
+	</style>
+  </head>
+<body>
+<h1>Assignment 3</h1>
+<h2> Rowan Lochrin </h2>
+<hr />
+<div id="scatterplot_1"> </div>
+<div id="scatterplot_2"> </div>
+<div id="scatterplot_3"> </div>
+<script>
+
+function maxAtt(data, att) 
+	{ return Math.max.apply(data, data.map(function(row) { return row[att] ;}))}
+
+function minAtt(data, att) 
+	{ return Math.min.apply(data, data.map(function(row) { return row[att] ;}))}
+
+function range(data, att)
+	{ return maxAtt(data, att) - minAtt(data, att) ; } 
+
+function normalize(data, att, elm)
+	{ return (elm - minAtt(data, att)) / range(data,att); }
+
+var chart1 = make("svg", { width: 800, height: 800, "class": "my-chart" });
+document.getElementById("scatterplot_1").appendChild(chart1);
+plotAll(chart1, scores, "circle", {
+	r: function(row) { return Math.ceil(row.ACT - 10); },
+	cx: function(row) { return Math.ceil(row.SATM); },
+	cy: function(row) { return 800-Math.ceil(row.SATV); },
+	fill: function(row) { 
+		var min = 1.0;
+		var max = 4.0;
+		var mode = 3.0; // All students that got under a b will have red dots
+		return (row.GPA < mode) ?  
+			rgb((row.GPA -  min)/(mode - min),0,0):
+			rgb(0,0,(row.GPA -  mode)/(max - mode));
+    	},
+	opacity: function(row) { return 0.6; },
+	stroke: function(row) { return "black"; }
+
+});
+
+var chart2 = make("svg", { width: 800, height: 800, "class": "my-chart" });
+document.getElementById("scatterplot_2").appendChild(chart2);
+plotAll(chart2, scores, "circle", {
+	cx: function(row) { return Math.ceil(normalize(scores,"ACT",row.ACT) * 800); },
+	cy: function(row) { return Math.ceil(normalize(scores,"GPA",row.GPA) * 800); },
+	r: function(row) { return Math.ceil(normalize(scores,"SATV",row.SATV) * 20); },
+	fill: function(row) { 
+		c = normalize(scores,"SATV",row.SATV);
+		return rgb(c,c,c);
+	},
+	stroke: function(row) { return "black"; }
+});
+
+var chart3 = make("svg", { width: 800, height: 800, "class": "my-chart" });
+document.getElementById("scatterplot_3").appendChild(chart3);
+plotAll(chart3, scores, "circle", {
+	cx: function(row) { 
+		var satv_norm = normalize(scores,"ACT",row.ACT);
+		var satn_norm = normalize(scores,"SATM",row.SATM);
+		return Math.ceil((satv_norm + satn_norm) * 400); 
+	},
+	cy: function(row) { return Math.ceil(normalize(scores,"GPA",row.GPA) * 800); },
+	r: function(row) {return 3;},
+	fill: function(row) { 
+		c = normalize(scores,"ACT",row.ACT);
+		return rgb(c,c,c);
+	},
+	stroke: function(row) { return "black"; }
+});
+
+</script>
+</body>
+</html>

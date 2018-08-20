@@ -1,0 +1,2 @@
+print     Line exactly 80 characters test, should be ERROR.   345678901234567890
+

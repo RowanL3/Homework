@@ -1,0 +1,47 @@
+1. X is 4*5.
+x = 20
+
+2. X = 4*5.
+x = 4 * 5
+
+3. X = apple, Y = pear, X = Y.
+false.
+
+4. X = apple, Y = pear, X = Z, Z = Y.
+false.
+
+5. X = apple, X = Z, Z = Y, Z = apple.
+X = Z, Z = Y, Y = apple.
+
+6. 4 * 5 = *(4,5).
+true.
+
+7. 4 * 5 = *(X,Y).
+X = 4,
+Y = 5.
+
+8. 4 * 5 = *(X,5).
+X = 4.
+
+9. X = Y, apple = X, Z = Y, Z = apple.
+X = Y, Y = Z, Z = apple.
+
+10. X = fruit(apple, good).
+X = fruit(apple, good).
+
+11. fruit(X,Y) = fruit(apple, good).
+X = apple,
+Y = good.
+
+12. X = apple, fruit(X,Y) = fruit(apple, good).
+X = apple,
+Y = good.
+
+13. 80 is *(9,+(4,5))
+false. NOTE: Returns true with 81
+
+14. X=Y, Y=Z, Z=W, X=apple.
+X = Y, Y = Z, Z = W, W = apple.
+
+15. (X= apple; X=pear), X=Y, Y=pear.
+X = Y, Y = pear.

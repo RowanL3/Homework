@@ -1,0 +1,261 @@
+        -:    0:Source:PhoneCalls.c
+        -:    0:Graph:./PhoneCalls.gcno
+        -:    0:Data:./PhoneCalls.gcda
+        -:    0:Runs:8
+        -:    0:Programs:1
+        -:    1:/* Author: Rowan Lochrin
+        -:    2:*  File: PhoneCalls.c 
+        -:    3:*  Description: accepts comand line arguments of the form:
+        -:    4:*   file_1, file_2,...,file_n, phone_number_1, phone_number_2.
+        -:    5:*   where the files names corospond to files format:
+        -:    6:*   number1 number2
+        -:    7:*   number3 number4
+        -:    8:*    ...
+        -:    9:*   where every pair of numbers corsponds to the a phone call bettween 
+        -:   10:*   the two numbers. after all files in the list have been scaned returns
+        -:   11:*   how many times the two numbers inputed in args called each other
+        -:   12:*   and "yes" if they have both talked to the same person, "no" if they
+        -:   13:*   have not.
+        -:   14:*
+        -:   15:*  NOTE TO GRADER: all malloc checking is done by the malloc_safe function.
+        -:   16:*/
+        -:   17:
+        -:   18:#include <stdio.h>
+        -:   19:#include <stdlib.h>
+        -:   20:#include <ctype.h>
+        -:   21:#include <string.h>
+        -:   22:
+        -:   23:struct list_node
+        -:   24:{
+        -:   25:    char* phone_number;
+        -:   26:    struct list_node *next;
+        -:   27:    // the sublist node should be blank for every node in a sublist
+        -:   28:    struct list_node *sublist; 
+        -:   29:};
+        -:   30:typedef struct list_node list_node;
+        -:   31:
+        -:   32:
+        -:   33:int valid_phone_number(char *phone_number);
+        -:   34:int scan_file(char *file_name);
+        -:   35:void add_to_list(char *phone_number_1,char *phone_number_2);
+        -:   36:void free_list(list_node *head_node);
+        -:   37:void *malloc_safe(size_t size);
+        -:   38:
+        -:   39:list_node* head_node = NULL;
+        -:   40:
+        -:   41:int main(int argc, char *argv[]){
+        8:   42:    int error_status = 0;
+        8:   43:    char *phone_number_1 = NULL;
+        8:   44:    char *phone_number_2 = NULL;
+        8:   45:    int got_input = 0;
+        -:   46:    // set the index to grab the two phone numbers from args first
+        8:   47:    if(argc <= 3){
+        1:   48:        fprintf(stderr,"not enough args entered\n");
+        1:   49:        return 1;
+        -:   50:    }
+        7:   51:    phone_number_1 = argv[argc - 2];
+        7:   52:    phone_number_2 = argv[argc - 1];
+        -:   53:    // check to make sure both inputed numbers are valid
+       13:   54:    if(valid_phone_number(phone_number_1) == 0 ||
+        6:   55:        valid_phone_number(phone_number_2) == 0){
+        1:   56:        fprintf(stderr,"invalid phone number entered\n");
+        1:   57:        return 1;
+        -:   58:    }
+        -:   59:    int i;
+       36:   60:    for(i = 1; i < argc - 2; i++){
+       12:   61:        int error_inc = scan_file(argv[i]);
+       12:   62:        if(error_inc){
+        -:   63:            // checks the type of error
+        6:   64:            if(error_inc == 1){ 
+        -:   65:                // if any valid lines were read in
+        1:   66:                got_input = 1;
+        1:   67:            }
+        6:   68:            error_status = 1;
+        6:   69:        }
+        6:   70:        else got_input = 1;
+       12:   71:    }
+        -:   72:    //check to make sure at least one file was scanned
+        6:   73:    if(got_input == 0){ 
+        1:   74:        fprintf(stderr,"Please enter at least one valid file\n");
+        1:   75:        return 1;
+        -:   76:    }
+        -:   77:
+        -:   78:
+        -:   79:    //check to see how many times they called each other and if there was a mutal 3rd party
+        5:   80:    int call_count = 0;
+        5:   81:    int mutual_call = 0;
+        5:   82:    list_node* cur = head_node;
+        5:   83:    list_node* phone_number_1_list = NULL;
+        5:   84:    list_node* phone_number_2_list = NULL;
+        5:   85:    list_node* phone_number_2_list_first = NULL;
+       82:   86:    while(cur != NULL){
+       36:   87:        if(strcmp(cur -> phone_number,phone_number_1) == 0){
+        2:   88:            phone_number_1_list = cur -> sublist;
+        2:   89:        }
+       36:   90:        if(strcmp(cur -> phone_number,phone_number_2) == 0){
+        4:   91:            phone_number_2_list = cur -> sublist;
+        4:   92:            phone_number_2_list_first = cur -> sublist;
+        -:   93:            // this will allow us to "rewind" phone nubmer 2's list after looping through it
+        4:   94:        }
+       36:   95:        cur = cur -> next;
+        -:   96:    }
+        -:   97:
+       26:   98:    while(phone_number_1_list != NULL){
+        8:   99:        if(strcmp(phone_number_2,phone_number_1_list -> phone_number) == 0){
+        2:  100:            call_count++;
+        2:  101:        }
+       88:  102:        while(phone_number_2_list != NULL){
+       36:  103:            if(strcmp(phone_number_2_list -> phone_number, phone_number_1_list -> phone_number) == 0){
+        6:  104:                mutual_call = 1;
+        6:  105:            }
+       36:  106:            phone_number_2_list = phone_number_2_list -> next;
+        -:  107:        }
+        8:  108:        phone_number_2_list = phone_number_2_list_first;
+        8:  109:        phone_number_1_list = phone_number_1_list -> next;
+        -:  110:    }
+        5:  111:    free_list(head_node);
+        5:  112:    printf("%d\n", call_count);
+        -:  113:
+        6:  114:    if (mutual_call) printf("yes\n");
+        4:  115:    else printf("no\n");
+        -:  116:
+        -:  117:    // return zero if everything ran fine
+        5:  118:    return error_status;
+        8:  119:}
+        -:  120:
+        -:  121:int scan_file(char *file_name){
+        -:  122:    /* scans a file and ads its content to the linked list, note
+        -:  123:    this function double add's entrys so the line xxx-xxxx yyy-yyyy
+        -:  124:    will add yyy-yyyy to the list of people xxx-xxxx's called and
+        -:  125:    add xxx-xxxx to the list of people yyy-yyyy's called if a non-
+        -:  126:    fatal error was enconterd 2 if no lines were read in, zero if
+        -:  127:    everying worked correctly. */
+       12:  128:    int at_least_one_valid_line = 0;
+        -:  129:    char phone_number_1[9];
+        -:  130:    char phone_number_2[9];
+       12:  131:    int error_status = 0;
+       12:  132:    char* line = NULL;
+       12:  133:    size_t len = 0;
+       12:  134:    FILE * call_logs = NULL;
+       12:  135:    call_logs = fopen(file_name,"r");
+        -:  136:    // make the file name represents a file in the directory
+       12:  137:    if(call_logs == NULL){
+        4:  138:        fprintf(stderr,"could not find file %s\n",file_name);
+        4:  139:    }
+        -:  140:    // else read that file line by line
+        -:  141:    else{
+      150:  142:        while(getline(&line, &len, call_logs) != -1){
+       67:  143:            if(*line != '\n'){
+        -:  144:                // checks to make sure line valid
+       88:  145:                if(sscanf(line,"%8s %8s", phone_number_1, phone_number_2) != 2 || // must have two numbers
+       47:  146:                    valid_phone_number(phone_number_1) == 0 || //both numbers must be valid
+       40:  147:                    valid_phone_number(phone_number_2) == 0 ||
+       39:  148:                    strlen(line) != 18 || // line must be of length 18
+       37:  149:                    line[8] != ' '){ // there must be a space in bettwen both numbers
+       14:  150:                    fprintf(stderr,"invalid line read in\n");
+       14:  151:                    error_status = 1;
+       14:  152:                }
+        -:  153:                else{
+       37:  154:                    at_least_one_valid_line = 1;
+       37:  155:                    add_to_list(phone_number_1,phone_number_2);
+       37:  156:                    add_to_list(phone_number_2,phone_number_1);
+        -:  157:                }
+       51:  158:            }
+        -:  159:        }
+        8:  160:        free(line);
+        8:  161:        fclose(call_logs);
+        -:  162:    }
+       12:  163:    if(at_least_one_valid_line){
+        7:  164:        return error_status;
+        -:  165:    }
+        5:  166:    else return 2;
+       12:  167:}
+        -:  168:
+        -:  169:int valid_phone_number(char *num){
+        -:  170:    /* cylces through a string representing a phone number and returns
+        -:  171:    true if that number is of the for xxx-xxxx. false if it does not. */
+      100:  172:    if(num == NULL) return 0;
+      103:  173:    if(strlen(num) != 8) return 0;
+      101:  174:    if(num[3] != '-') return 0;
+        -:  175:    int i;
+     1656:  176:    for(i = 0; i <= 7; i++){
+      737:  177:        if(i != 3){
+      647:  178:            if(isdigit(num[i]) == 0) return 0;
+      643:  179:            }
+      735:  180:        }
+       91:  181:    return 1;
+      100:  182:}
+        -:  183:
+        -:  184:void add_to_list(char *phone_number_1, char *phone_number_2){
+        -:  185:    /* if phone number 1 is not in the meta list adds phone number 1
+        -:  186:    to the begining of the meta list if not it adds phone number 2 to 
+        -:  187:    the begining of phone number 1s list */
+        -:  188:    // create the sub node
+       74:  189:    list_node* sub_node = malloc_safe(sizeof(list_node));
+       74:  190:    sub_node -> phone_number = malloc_safe(9*sizeof(char));
+       74:  191:    strcpy(sub_node -> phone_number, phone_number_2);
+        -:  192:
+       74:  193:    sub_node -> next = NULL;
+       74:  194:    sub_node -> sublist = NULL;
+        -:  195:
+       74:  196:    list_node* cur = head_node;
+       74:  197:    list_node* prev = head_node;
+        -:  198:
+        -:  199:    // cycles throught the list until the end cur is the last element.
+      662:  200:    while(cur != NULL){
+        -:  201:        /* if a node with the first phone number is already in
+        -:  202:           the list just add the sub node containing a the second phone
+        -:  203:           number node to that numbers list */
+      295:  204:        if(strcmp(cur -> phone_number, phone_number_1) == 0){
+       38:  205:            sub_node -> next = cur -> sublist;
+       38:  206:            cur -> sublist = sub_node;
+       38:  207:            return;
+        -:  208:        }
+      257:  209:        prev = cur; // prev is one node behind current
+      257:  210:        cur = cur -> next;
+        -:  211:    }
+        -:  212:    /* this code only excutes if there was no node with the first
+        -:  213:    / phone number already in the linekd list. */
+       36:  214:    list_node* new_node = malloc_safe(sizeof(list_node));
+       36:  215:    new_node -> phone_number = malloc_safe(9*sizeof(char));
+       36:  216:    strcpy(new_node -> phone_number, phone_number_1);
+       36:  217:    new_node -> next = NULL;
+        -:  218:    // starts the new nodes sublist with the phone_number_2
+       36:  219:    new_node -> sublist = sub_node;
+       36:  220:    if(head_node == NULL){
+        5:  221:        head_node = new_node;
+        5:  222:    }
+        -:  223:    else{
+       31:  224:        prev -> next = new_node;
+        -:  225:    }    
+        -:  226:
+       74:  227:}
+        -:  228:
+        -:  229:void free_list(list_node *node){
+        -:  230:    /* recursive function to clean up the linked list and sublists */
+        -:  231:    // Free the sublist if there is one
+      110:  232:    if(node -> sublist != NULL){
+       36:  233:        free_list(node -> sublist);
+       36:  234:    }
+        -:  235:    // Free the next node first
+      110:  236:    if(node -> next != NULL){
+       69:  237:        free_list(node -> next);
+       69:  238:    }
+      110:  239:    free(node -> phone_number);
+      110:  240:    free(node);
+      110:  241:}
+        -:  242:
+        -:  243:void *malloc_safe(size_t size){
+        -:  244:    /* function that malloc's memory and returns a pointer to 
+        -:  245:    that memory. Kills the program and and reports an error
+        -:  246:    if the malloc failed. Just added this so I woulden't have
+        -:  247:    to check mallocs every single time */
+      220:  248:    void *mem = malloc(size);
+      220:  249:    if(mem == NULL){
+        -:  250:        // these lines will only run if the malloc failed
+    #####:  251:        fprintf(stderr,"OUT OF MEMORY");
+    #####:  252:        free_list(head_node);
+    #####:  253:        exit(1);
+        -:  254:    }
+      220:  255:    return mem;
+        -:  256:}

@@ -1,0 +1,149 @@
+#! /bin/bash
+
+
+ALL_PROGS="makeThis"
+TIME_LIMIT=10     # in seconds
+
+
+# confirm that all of the basic test elements are present.
+for PROG in $ALL_PROGS
+do
+  if [[ ! -f example_$PROG ]]
+  then
+    echo "ERROR: example_$PROG is missing from the current directory." 1>&2
+    exit 1
+  fi
+
+  if [[ $(ls -1 test_${PROG}_* 2>/dev/null) = "" ]]
+  then
+    echo "WARNING: Could not find any testcases for $PROG.  That program will receive a score of 0 from this script." 1>&2
+  fi
+
+  if [[ ! -f $PROG/$PROG.c ]]
+  then
+    echo "WARNING: $PROG/$PROG.c is missing; that program will receive a score of 0 from this script." 1>&2
+  fi
+done
+
+
+
+SCORE_SO_FAR=0
+
+
+
+# NOW A BIG LOOP
+#
+# Each iteration of this loop works basically like the 'silly' test code
+# above - the main difference is that instead of having a pre-ordained
+# set of testcases (which are passed as command-line arguments), we have
+# multiple testcase files, which are piped as stdin.
+
+for PROG in $ALL_PROGS
+do
+  echo "------------- BEGIN TESTING OF ${PROG}.c -------------"
+  cd $PROG || continue    # skip this program if we can't cd into the directory.
+
+  # clean up the old artifacts.  Confirm that they were removed.
+  rm $PROG compile.out 2>/dev/null
+
+  if [[ -f $PROG || -f compile.out ]]
+  then
+    echo "ERROR: Could not remove the file '$PROG' or 'compile.out" 1>&2
+    exit 1
+  fi
+
+  # build the executable; collect the output (if any), and the exit status
+  gcc -Wall -std=gnu99 -o ${PROG} ${PROG}.c -lm >compile.out 2>&1
+  RC=$?
+
+  # -s asks "does the file exist and has a size greater than zero".
+  # See # 'man test'
+  if [[ $RC != 0 || -s compile.out ]]
+  then
+    COMPILE_PENALTY=1
+    echo "ERROR: ${PROG}.c did not compile perfectly.  Either warnings or errors were produced, or else the exit status from gcc was nonzero."
+  else
+    COMPILE_PENALTY=0
+    rm compile.out
+  fi
+
+  # do the tests
+
+  ATTEMPT=0
+  PASS=0
+
+  # clean up old artifacts
+  rm example.stdout.* example.stderr.* student.stdout.* student.stderr.* 2>/dev/null
+
+  for TESTCASE in $(ls -1 ../test_${PROG}_* 2>/dev/null | cut -f2 -d'/')
+  do
+    echo "    *** testcase: $TESTCASE"
+
+    cat ../$TESTCASE | timeout $TIME_LIMIT ../example_$PROG >example.stdout.$TESTCASE 2>example.stderr.$TESTCASE
+    EXAMPLE_RC=$?
+
+    cat ../$TESTCASE | timeout $TIME_LIMIT ./$PROG >student.stdout.$TESTCASE 2>student.stderr.$TESTCASE
+    STUDENT_RC=$?
+
+    if [[ $STUDENT_RC = 124 ]]
+    then
+      echo "ERROR: $PROG: Testcase '$TESTCASE' failed: Command timed out after 10 seconds." 1>&2
+
+    elif [[ $STUDENT_RC != $EXAMPLE_RC ]]
+    then
+      echo "ERROR: $PROG: Testcase '$TESTCASE' failed: Exit status mismatch.  Example returned $EXAMPLE_RC, student program returned $STUDENT_RC" 1>&2
+
+    elif [[ $(diff example.stdout.$TESTCASE student.stdout.$TESTCASE) != "" ]]
+    then
+      echo "ERROR: $PROG: Testcase '$TESTCASE' failed: stdout mismatch." 1>&2
+
+    elif [[   -s example.stderr.$TESTCASE && ! -s student.stderr.$TESTCASE  ||   # spurious stderr
+            ! -s example.stderr.$TESTCASE &&   -s student.stderr.$TESTCASE  ]]   # missing stderr
+    then
+      echo "ERROR: $PROG: Testcase '$TESTCASE' failed: stderr mismatch." 1>&2
+
+    else
+      PASS=$(( PASS+1 ))
+
+      rm student.stdout.$TESTCASE student.stderr.$TESTCASE
+      rm example.stdout.$TESTCASE example.stderr.$TESTCASE
+    fi
+
+    ATTEMPT=$(( ATTEMPT+1 ))
+  done
+
+  if [[ $PROG = "scheduling" ]]
+  then
+    POSSIBLE=40
+  else
+    POSSIBLE=30
+  fi
+
+  if [[ $ATTEMPT -eq 0 ]]
+  then
+    echo "WARNING: The program '$PROG' did not have any testcases, you earn 0 points for this program." 1>&2
+    THIS_SCORE=0
+  else
+    # total up the score for this program
+    THIS_SCORE=$(( POSSIBLE*PASS / ATTEMPT ))
+
+    if [[ $COMPILE_PENALTY = 1 ]]
+    then
+      THIS_SCORE=$(( THIS_SCORE / 2 ))
+    fi
+  fi
+
+  echo "SCORE FOR '$PROG': ${THIS_SCORE} out of ${POSSIBLE} points"
+  echo "------------- END TESTING OF ${PROG}.c -------------"
+
+  cd ..
+
+  SCORE_SO_FAR=$(( SCORE_SO_FAR + THIS_SCORE ))
+done
+
+
+echo "----------------------------"
+echo "AUTOMATED SCORE: $SCORE_SO_FAR"
+echo "----------------------------"
+
+

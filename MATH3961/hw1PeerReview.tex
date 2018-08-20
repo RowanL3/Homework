@@ -1,0 +1,62 @@
+\documentclass[11pt] {article}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{array}
+\usepackage{enumitem}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\T}{\mathcal{T}}
+\newcolumntype{C}{>$c<$}
+\newcolumntype{L}{>$l<$}
+
+\begin{document}
+\noindent Question 1:
+\begin{enumerate}
+\item
+Clear and correct truth table and explanation. However what you proved was the \textit{sequent:} $\vDash (ii) \Rightarrow (i)$ not the \textit{theorem:} $(ii) \vDash (i)$. The subtle distinction between them is that $\vDash$ is not a truth functional connective like $\Rightarrow$, it is a property of the meta-logic so it should not appear in the truth table. Instead you should show that in every configuration $(ii)$ is true $(i)$ must also be true in your explanation. This is probably easiest to do in the contrapositive e.g. the only configuration where $(i)$ is false $(ii)$ must also be false. Same with $(i) \nvDash (ii)$ the argument there being by counter example (there exists some configuration in which (i) is true but (ii) is false).
+\item
+Largely same as above however what makes this answer far better is you explicitly state, $(ii) \Rightarrow (i)$ is a theorem and $(i)\Rightarrow (ii)$ is not. My only two remaining nit picks are it would be make it a little more clearer how you get from the sequent to the theorem, and (in my eyes at least) proving the Theorem to prove the sequent is a little indirect it would probably be better to just prove the sequent directly.
+\item 
+Clear, concise and correct.
+\end{enumerate}
+Question 2a:
+\begin{enumerate}
+\item
+Valid and elegant proof.
+\item
+It looks like you have the right idea in trying to get $P \land Q$ for modus ponens on $ (P\land Q) \Rightarrow R$ however in line 3 you assume $P \land Q$. meaning that line 6 (where you discharge the assumption) would actually be $(P \land Q) \Rightarrow R $. Which is not what you are trying to prove. Instead the assumption you want is just $P$ and you should be able to build $P \land Q$ from that and your initial assumption.
+\item (Out of order) The only mistakes here are that you say you got $Q$ and $(P\land Q) \Rightarrow R$ by assumption (and I suspect that you meant $\land-E$ because wrote that they both depend on line 1) and you forget to remove $P$ from your assumptions on line 7.
+\end{enumerate}
+Question 2b:
+\begin{enumerate}
+\item Great proof. My only note is that you could save a step by not discharging the assumption $(P \land R)$ until after the $\lor -E$ step (making Q your conclusion for $\lor -E$).
+\item You appear to be on the right track logically however your proof seems to be working under the premise that $B,A\Rightarrow B \vDash A$ when this is not the case. Modus ponens is the idea that $A,A\land B \vDash B$. You seem to have made a similar mistake for conditional proof as well. If begin by assuming $P\land R$ and worked your way to $Q$ instead of the other way around this proof would be totally correct.
+\item Valid and elegant proof.
+\item Valid and elegant proof.  Gold star for organize your $\lor -E$ argument in cases
+\end{enumerate}
+Question 2c:
+\begin{enumerate}
+\item Valid and elegant proof. 
+\item It appears you may be confused with the statement of the problem, you are trying to prove $P\lor (Q\land R)$ from $P \lor Q $ and also prove it from $P \lor (Q \land R)$. When what $P\lor Q, P\lor R \vDash P \lor (Q\land R)$ really means is $P\lor (Q\land R)$ is provable from \textit{both} $P\lor Q$ and $P\lor R$. What you have attempted to prove here is $P\lor Q \vDash P \lor (Q \land R)$ \textit{and} $P\lor R \vDash P \lor (Q \land R)$  which are both impossible proofs as it is only from the combination of the two assumptions that you can infer the conclusion (It looks like in your argument you're mistaking $\land-I$ for $\lor-I$ in your attempt to do so). It's often useful to try and reason your way through the sequent before trying to prove it formally.
+\item Valid and elegant proof. Looks largely the same as 1, except with a different order of steps. Might have been nice to put the assumption of $P$ nearer the top to highlight the nested  $\lor -E$ structure of the proof but this is a minor stylistic nit pick.
+\end{enumerate}
+Question 2d:
+\begin{enumerate}
+\item Correct proof and relatively short. However reductio ad absurdum is not necessary for this proof, a far more direct approach would be to use Modus Tolens from $\sim Q$ to get $\sim P$ in one step. This saves three lines that were spent constructing the contradiction and results in a more succinct proof. 
+\item Good proof, the only minor mistake is that the label on line 6 should be modus tollens. Modus ponus is the idea that $A,A \Rightarrow B\vDash B$ when what you actually did was $\sim B, A \Rightarrow B \vDash \sim A$  (modus tollens).
+\end{enumerate}
+Question 3a:
+\begin{enumerate}
+\item Good method of investigating which, of the two WWF's was a theorem without having to go into a truth table. 
+\end{enumerate}
+Question 3b:
+\begin{enumerate}
+\item Stealer proof, cleaver use of the "anything for a contradiction sequent" in your first $\lor -E$ step and proving the conclusion from $P$ and from $\sim P$ was a fantastic way to structure it. I give it 5 stars and 2 thumbs up! 
+\item There are a few flaws in your proof. Firstly if you assume a direct contradiction like $Q\land \sim Q$ everything you infer from it will always in some way be predicated on that contradiction making it useless (because anything follows from a contradiction). Secondly from lines 11 and 12 it looks like you are misunderstanding conditional proof. Conditional proof is the idea that $P \vDash Q$ implies $\ \vDash P \Rightarrow Q$. This is also where you lose track of the assumption of $Q\land \sim Q$. Lastly your proof should always end with everything on the right side of the $\vDash$, with your only assumptions being things on the left side of the $\vDash$.
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,314 @@
+FUNCTION  <SNR>35_OnFileReadyToParse()
+Called 1 time
+Total time:   0.014586
+ Self time:   0.014586
+
+count  total (s)   self (s)
+                              " Accepts an optional parameter that is either 0 or 1. If 1, send a
+                              " FileReadyToParse event notification, whether the buffer has changed or not;
+                              " effectively forcing a parse of the buffer. Default is 0.
+    1              0.000008   let force_parsing = a:0 > 0 && a:1
+                            
+                              " We only want to send a new FileReadyToParse event notification if the buffer
+                              " has changed since the last time we sent one, or if forced.
+    1              0.000011   if force_parsing || b:changedtick != get( b:, 'ycm_changedtick', -1 )
+    1              0.014499     exec s:python_command "ycm_state.OnFileReadyToParse()"
+                            
+    1              0.000028     call timer_stop( s:pollers.file_parse_response.id )
+    1              0.000021     let s:pollers.file_parse_response.id = timer_start( s:pollers.file_parse_response.wait_milliseconds, function( 's:PollFileParseResponse' ) )
+                            
+    1              0.000004     let b:ycm_changedtick = b:changedtick
+    1              0.000002   endif
+
+FUNCTION  <SNR>35_OnInsertEnter()
+Called 1 time
+Total time:   0.000162
+ Self time:   0.000025
+
+count  total (s)   self (s)
+    1   0.000150   0.000013   if !s:AllowedToCompleteInCurrentBuffer()
+                                return
+                              endif
+                            
+    1              0.000006   let s:old_cursor_position = []
+
+FUNCTION  <SNR>23_Highlight_Matching_Pair()
+Called 24 times
+Total time:   0.004129
+ Self time:   0.004129
+
+count  total (s)   self (s)
+                              " Remove any previous match.
+   24              0.000325   if exists('w:paren_hl_on') && w:paren_hl_on
+                                silent! call matchdelete(3)
+                                let w:paren_hl_on = 0
+                              endif
+                            
+                              " Avoid that we remove the popup menu.
+                              " Return when there are no colors (looks like the cursor jumps).
+   24              0.000247   if pumvisible() || (&t_Co < 8 && !has("gui_running"))
+                                return
+                              endif
+                            
+                              " Get the character under the cursor and check if it's in 'matchpairs'.
+   24              0.000143   let c_lnum = line('.')
+   24              0.000104   let c_col = col('.')
+   24              0.000047   let before = 0
+                            
+   24              0.000141   let text = getline(c_lnum)
+   24              0.000700   let matches = matchlist(text, '\(.\)\=\%'.c_col.'c\(.\=\)')
+   24              0.000117   if empty(matches)
+                                let [c_before, c] = ['', '']
+                              else
+   24              0.000198     let [c_before, c] = matches[1:2]
+   24              0.000029   endif
+   24              0.000573   let plist = split(&matchpairs, '.\zs[:,]')
+   24              0.000136   let i = index(plist, c)
+   24              0.000081   if i < 0
+                                " not found, in Insert mode try character before the cursor
+   24              0.000132     if c_col > 1 && (mode() == 'i' || mode() == 'R')
+                                  let before = strlen(c_before)
+                                  let c = c_before
+                                  let i = index(plist, c)
+                                endif
+   24              0.000037     if i < 0
+                                  " not found, nothing to do
+   24              0.000053       return
+                                endif
+                              endif
+                            
+                              " Figure out the arguments for searchpairpos().
+                              if i % 2 == 0
+                                let s_flags = 'nW'
+                                let c2 = plist[i + 1]
+                              else
+                                let s_flags = 'nbW'
+                                let c2 = c
+                                let c = plist[i - 1]
+                              endif
+                              if c == '['
+                                let c = '\['
+                                let c2 = '\]'
+                              endif
+                            
+                              " Find the match.  When it was just before the cursor move it there for a
+                              " moment.
+                              if before > 0
+                                let has_getcurpos = exists("*getcurpos")
+                                if has_getcurpos
+                                  " getcurpos() is more efficient but doesn't exist before 7.4.313.
+                                  let save_cursor = getcurpos()
+                                else
+                                  let save_cursor = winsaveview()
+                                endif
+                                call cursor(c_lnum, c_col - before)
+                              endif
+                            
+                              " Build an expression that detects whether the current cursor position is in
+                              " certain syntax types (string, comment, etc.), for use as searchpairpos()'s
+                              " skip argument.
+                              " We match "escape" for special items, such as lispEscapeSpecial.
+                              let s_skip = '!empty(filter(map(synstack(line("."), col(".")), ''synIDattr(v:val, "name")''), ' . '''v:val =~? "string\\|character\\|singlequote\\|escape\\|comment"''))'
+                              " If executing the expression determines that the cursor is currently in
+                              " one of the syntax types, then we want searchpairpos() to find the pair
+                              " within those syntax types (i.e., not skip).  Otherwise, the cursor is
+                              " outside of the syntax types and s_skip should keep its value so we skip any
+                              " matching pair inside the syntax types.
+                              execute 'if' s_skip '| let s_skip = 0 | endif'
+                            
+                              " Limit the search to lines visible in the window.
+                              let stoplinebottom = line('w$')
+                              let stoplinetop = line('w0')
+                              if i % 2 == 0
+                                let stopline = stoplinebottom
+                              else
+                                let stopline = stoplinetop
+                              endif
+                            
+                              " Limit the search time to 300 msec to avoid a hang on very long lines.
+                              " This fails when a timeout is not supported.
+                              if mode() == 'i' || mode() == 'R'
+                                let timeout = exists("b:matchparen_insert_timeout") ? b:matchparen_insert_timeout : g:matchparen_insert_timeout
+                              else
+                                let timeout = exists("b:matchparen_timeout") ? b:matchparen_timeout : g:matchparen_timeout
+                              endif
+                              try
+                                let [m_lnum, m_col] = searchpairpos(c, '', c2, s_flags, s_skip, stopline, timeout)
+                              catch /E118/
+                                " Can't use the timeout, restrict the stopline a bit more to avoid taking
+                                " a long time on closed folds and long lines.
+                                " The "viewable" variables give a range in which we can scroll while
+                                " keeping the cursor at the same position.
+                                " adjustedScrolloff accounts for very large numbers of scrolloff.
+                                let adjustedScrolloff = min([&scrolloff, (line('w$') - line('w0')) / 2])
+                                let bottom_viewable = min([line('$'), c_lnum + &lines - adjustedScrolloff - 2])
+                                let top_viewable = max([1, c_lnum-&lines+adjustedScrolloff + 2])
+                                " one of these stoplines will be adjusted below, but the current values are
+                                " minimal boundaries within the current window
+                                if i % 2 == 0
+                                  if has("byte_offset") && has("syntax_items") && &smc > 0
+                            	let stopbyte = min([line2byte("$"), line2byte(".") + col(".") + &smc * 2])
+                            	let stopline = min([bottom_viewable, byte2line(stopbyte)])
+                                  else
+                            	let stopline = min([bottom_viewable, c_lnum + 100])
+                                  endif
+                                  let stoplinebottom = stopline
+                                else
+                                  if has("byte_offset") && has("syntax_items") && &smc > 0
+                            	let stopbyte = max([1, line2byte(".") + col(".") - &smc * 2])
+                            	let stopline = max([top_viewable, byte2line(stopbyte)])
+                                  else
+                            	let stopline = max([top_viewable, c_lnum - 100])
+                                  endif
+                                  let stoplinetop = stopline
+                                endif
+                                let [m_lnum, m_col] = searchpairpos(c, '', c2, s_flags, s_skip, stopline)
+                              endtry
+                            
+                              if before > 0
+                                if has_getcurpos
+                                  call setpos('.', save_cursor)
+                                else
+                                  call winrestview(save_cursor)
+                                endif
+                              endif
+                            
+                              " If a match is found setup match highlighting.
+                              if m_lnum > 0 && m_lnum >= stoplinetop && m_lnum <= stoplinebottom 
+                                if exists('*matchaddpos')
+                                  call matchaddpos('MatchParen', [[c_lnum, c_col - before], [m_lnum, m_col]], 10, 3)
+                                else
+                                  exe '3match MatchParen /\(\%' . c_lnum . 'l\%' . (c_col - before) . 'c\)\|\(\%' . m_lnum . 'l\%' . m_col . 'c\)/'
+                                endif
+                                let w:paren_hl_on = 1
+                              endif
+
+FUNCTION  <SNR>35_AllowedToCompleteInBuffer()
+Called 26 times
+Total time:   0.002364
+ Self time:   0.002097
+
+count  total (s)   self (s)
+   26              0.000299   let buffer_filetype = getbufvar( a:buffer, '&filetype' )
+                            
+   26              0.000408   if empty( buffer_filetype ) || getbufvar( a:buffer, '&buftype' ) ==# 'nofile' || buffer_filetype ==# 'qf'
+                                return 0
+                              endif
+                            
+   26   0.000574   0.000307   if s:DisableOnLargeFile( a:buffer )
+                                return 0
+                              endif
+                            
+   26              0.000239   let whitelist_allows = has_key( g:ycm_filetype_whitelist, '*' ) || has_key( g:ycm_filetype_whitelist, buffer_filetype )
+   26              0.000158   let blacklist_allows = !has_key( g:ycm_filetype_blacklist, buffer_filetype )
+                            
+   26              0.000084   let allowed = whitelist_allows && blacklist_allows
+   26              0.000043   if allowed
+   26              0.000162     let s:previous_allowed_buffer_number = bufnr( a:buffer )
+   26              0.000026   endif
+   26              0.000042   return allowed
+
+FUNCTION  <SNR>35_PollFileParseResponse()
+Called 1 time
+Total time:   0.000852
+ Self time:   0.000583
+
+count  total (s)   self (s)
+    1   0.000301   0.000032   if !s:Pyeval( "ycm_state.FileParseRequestReady()" )
+                                let s:pollers.file_parse_response.id = timer_start( s:pollers.file_parse_response.wait_milliseconds, function( 's:PollFileParseResponse' ) )
+                                return
+                              endif
+                            
+    1              0.000529   exec s:python_command "ycm_state.HandleFileParseRequest()"
+
+FUNCTION  <SNR>35_OnInsertLeave()
+Called 1 time
+Total time:   0.016199
+ Self time:   0.001268
+
+count  total (s)   self (s)
+    1   0.000365   0.000020   if !s:AllowedToCompleteInCurrentBuffer()
+                                return
+                              endif
+                            
+    1              0.000005   let s:omnifunc_mode = 0
+    1   0.014643   0.000057   call s:OnFileReadyToParse()
+    1              0.001104   exec s:python_command "ycm_state.OnInsertLeave()"
+    1              0.000051   if g:ycm_autoclose_preview_window_after_completion || g:ycm_autoclose_preview_window_after_insertion
+                                call s:ClosePreviewWindowIfNeeded()
+                              endif
+
+FUNCTION  <SNR>35_OnCursorMovedNormalMode()
+Called 24 times
+Total time:   0.005665
+ Self time:   0.003477
+
+count  total (s)   self (s)
+   24   0.002406   0.000218   if !s:AllowedToCompleteInCurrentBuffer()
+                                return
+                              endif
+                            
+   24              0.003162   exec s:python_command "ycm_state.OnCursorMoved()"
+
+FUNCTION  <SNR>35_DisableOnLargeFile()
+Called 26 times
+Total time:   0.000267
+ Self time:   0.000267
+
+count  total (s)   self (s)
+   26              0.000170   if exists( 'b:ycm_largefile' )
+   26              0.000062     return b:ycm_largefile
+                              endif
+                            
+                              let threshold = g:ycm_disable_for_files_larger_than_kb * 1024
+                              let b:ycm_largefile = threshold > 0 && getfsize( expand( a:buffer ) ) > threshold
+                              if b:ycm_largefile
+                                exec s:python_command "vimsupport.PostVimMessage(" . "'YouCompleteMe is disabled in this buffer; " . "the file exceeded the max size (see YCM options).' )"
+                              endif
+                              return b:ycm_largefile
+
+FUNCTION  <SNR>35_Pyeval()
+Called 1 time
+Total time:   0.000269
+ Self time:   0.000269
+
+count  total (s)   self (s)
+    1              0.000004   if s:using_python3
+                                return py3eval( a:eval_string )
+                              endif
+    1              0.000252   return pyeval( a:eval_string )
+
+FUNCTION  <SNR>35_AllowedToCompleteInCurrentBuffer()
+Called 26 times
+Total time:   0.002670
+ Self time:   0.000306
+
+count  total (s)   self (s)
+   26   0.002652   0.000288   return s:AllowedToCompleteInBuffer( '%' )
+
+FUNCTIONS SORTED ON TOTAL TIME
+count  total (s)   self (s)  function
+    1   0.016199   0.001268  <SNR>35_OnInsertLeave()
+    1   0.014586             <SNR>35_OnFileReadyToParse()
+   24   0.005665   0.003477  <SNR>35_OnCursorMovedNormalMode()
+   24   0.004129             <SNR>23_Highlight_Matching_Pair()
+   26   0.002670   0.000306  <SNR>35_AllowedToCompleteInCurrentBuffer()
+   26   0.002364   0.002097  <SNR>35_AllowedToCompleteInBuffer()
+    1   0.000852   0.000583  <SNR>35_PollFileParseResponse()
+    1   0.000269             <SNR>35_Pyeval()
+   26   0.000267             <SNR>35_DisableOnLargeFile()
+    1   0.000162   0.000025  <SNR>35_OnInsertEnter()
+
+FUNCTIONS SORTED ON SELF TIME
+count  total (s)   self (s)  function
+    1              0.014586  <SNR>35_OnFileReadyToParse()
+   24              0.004129  <SNR>23_Highlight_Matching_Pair()
+   24   0.005665   0.003477  <SNR>35_OnCursorMovedNormalMode()
+   26   0.002364   0.002097  <SNR>35_AllowedToCompleteInBuffer()
+    1   0.016199   0.001268  <SNR>35_OnInsertLeave()
+    1   0.000852   0.000583  <SNR>35_PollFileParseResponse()
+   26   0.002670   0.000306  <SNR>35_AllowedToCompleteInCurrentBuffer()
+    1              0.000269  <SNR>35_Pyeval()
+   26              0.000267  <SNR>35_DisableOnLargeFile()
+    1   0.000162   0.000025  <SNR>35_OnInsertEnter()
+

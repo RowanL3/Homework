@@ -1,0 +1,140 @@
+\documentclass[11pt]{article}
+
+\usepackage{scrextend}
+\usepackage[a4paper, margin = 1.25in,footskip =0.25in]{geometry}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amstext} 
+\usepackage{array}
+
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\graphicspath{ {images/} }
+
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcolumntype{L}{>{$}l<{$}} % math-mode version of "l" column type
+\begin{document}
+
+
+\begin{flushleft}
+Rowan Lochrin \\
+MATH415B - Klaus Lux \\
+3/26/1 \\
+Homework 8
+\end{flushleft}
+
+\section{Gallian}
+\begin{description}
+	\subsection{Chapter 20}
+	\item[27] Prove or disprove that $Q(\sqrt{3})$ and $Q(\sqrt{-3})$ are ring
+		isomorphic. \\
+	$Q(\sqrt{3})$ is not isomorphic to  $Q(\sqrt{-3})$ 
+		\begin{proof}
+		Let $\phi:Q(\sqrt{-3}) \rightarrow Q(\sqrt{3}) $ be an
+		isomorphic mapping.
+		\begin{align*}
+			\phi(3+\sqrt{-3}^2) & = \phi(0)\\
+			& = 0\\
+			\phi(3+\sqrt{-3}^2) & = \phi(3) + \phi(\sqrt{-3}^2)\\
+				 & = \phi(1) + \phi(1) + \phi(1) +
+				\phi(\sqrt{-3})\phi(\sqrt{-3}) \\
+			 & = 1 + 1 + 1 + \phi(\sqrt{-3})^2 \\
+			& = 3 + \phi(\sqrt{-3})^2 = 0 
+		\end{align*}
+		Because $\phi$ is onto there exists $a \in Q(\sqrt{3})$ such
+		that  $a^2 = -3 $ and $Q(\sqrt{3}) \subseteq
+		\R$ so  $a \in \R$.
+		\end{proof}
+	\item[28] For any prime $p$, find a field of characteristic $p$ that is
+		not perfect. \\
+		Consider the Field $Z_p(\sqrt[p]{2})$, this field clearly has
+		characteristic $p$ and 
+		$$ Z_p(\sqrt[p]{2}) = \{a+b\sqrt[p]{2}|a,b \in Z_p\}$$
+		Also
+		$$(a + b\sqrt[p]{2})^p = \sum_{k=0}^p\binom{p}{k} a^{n-k}b\sqrt[p]{2}^k$$
+		Because $p$ is prime, $p$ divides $\binom{p}{k}$ for all
+		values of $k$ except $k = 0$ and $k = p$. All but the first and
+		last terms of the expansion will be 0 so for any element of
+		$Z_p(\sqrt[p]{2})$.
+		$$(a + b\sqrt[p]{2})^p = a^p + (b\sqrt[p]{2})^p = (a^p +2b^p) \in
+		Z_p$$
+		Implying $ [Z_p(\sqrt[p]{2})]^p \neq  Z_p(\sqrt[p]{2})$.
+	\item[30] Show that $x^4 + x + 1$ does not have multiple zero's in any
+		extension field of $Z_2$.\\
+		\begin{align*}
+			f(x) &= x^4 + x + 1 \\
+			f'(x) &= 4x^3 + 1 = 1
+		\end{align*}
+		$$\gcd(f(x), f'(x)) = 1$$
+		So $f(x), f'(x)$ do not have a common factor of positive
+		degree. The result follows by Cirterion for Multiple Zeros.
+	\item[33] Let $F$ be a field of characteristic $p \neq 0$. Show that the
+		polynomial ring $f(x) = x^{p^n}-x$ over $F$ has distinct
+		zeros.
+		\begin{align*}
+			f(x) &= x^{p^n}-x\\
+			f'(x) &=p^nx^{p^n-1}-1 = 0^nx^{p^n-1} = -1
+		\end{align*}
+		$$\gcd(f(x), f'(x)) = 1$$ so $f(x)$ cannot have multiple zeros
+		in any extension field of $F$ since $F$ was an arbitrary field
+		we know that it cannot have multiple zeros in any field. And
+		clearly $1$ is a zero in any field.
+	\item[34] Find the splitting field for $f(x) = (x^2+x+2)(x^2+2x+2)$ over
+		$ F = Z_{3p} $ and write $f(x)$ as a product of linear factors.
+		$F(\sqrt{i})$ is a splitting field of $f(x)$
+		$$f(x) = (x^2+x+2)(x^2+2x+2) = x^4 + 3x^3 + 6x^2 + 6x + 4 = x^4 +
+		1 $$
+		And in $F(\sqrt i)$
+		$$ x^4 + 1 = (x+\sqrt i)(x-\sqrt i)(x + i\sqrt i)(x - i \sqrt i) $$
+	\subsection{Chapter 21}
+	\item[2] Let $E$ be the algebraic closure of $F$. Show that every
+		polynomial in $F[x]$ splits in $E$.\\
+		Let $f(x) \in F[x]$ and let $a_0,a_1,...,a_n$ be roots of
+		$f(x)$ then $a_0,a_1,...,a_n \in E$ so in $E$, 
+		$$f(x) = (x-a_0)(x-a_1)....(x - a_n)$$
+	\item[8] Find the degree of a basis for $Q(\sqrt3 + \sqrt5)$ over
+		$Q(\sqrt{15})$. Find the degree and a basis for $Q(\sqrt2,
+		\sqrt[3]{2},\sqrt[4]{2})$ over $Q$.\\
+		The set $\{1,\sqrt{3}\}$ is a basis for $Q(\sqrt3+\sqrt5)$ over
+		$Q(\sqrt{15})$. $\sqrt5 = \frac{1,\sqrt{15}}{\sqrt{3}}$ so $\sqrt{3},
+		\sqrt{5} \in Q(\sqrt{15})(\sqrt{3})$ hence any linear
+		combination of the two is also in $Q(\sqrt{15})(\sqrt3)$. They
+		are also linearly independant as $a+b\sqrt3 = 0$ has no
+		solutions for rational $a,b \in Q(\sqrt{15})$
+		$\{1,\sqrt[4]{2},\sqrt[3]{2}\}$ is a basis for $Q(\sqrt 2,
+		\sqrt[3]{2}, \sqrt[4]{2})$, as
+			$$ \sqrt 2  = \sqrt[4]{2}^2 $$
+		If the basis is linearly depended hence there exists some
+		$a$,$b$, and $c$ in $Q$ such that 
+		$$a + b\sqrt[4]2 + c \sqrt[3]2 = 0$$
+		which clearly has no solutions.
+				
+	\item[10] Let $a$ be a complex number that is algebraic over $Q$ show
+		that $\sqrt a$ is algebraic over $Q$. Why does this prove that
+		$\sqrt[2]{a}$ is algebraic over $Q$?\\
+		If $a$ is a algebraic over $Q$ there exists some $f(x) \in Q[x]$
+		such that $f(a) = 0$. Let 
+		$$f(x) = c_1a^1 +c_2a^2 +... +c_na^n $$
+		We can see that
+	\item[14] Find the minimal polynomial for $ \sqrt{-3} + \sqrt 2 $ over
+		$Q$.\\
+	\end{description}
+\section{GAP}
+	\begin{description}
+	\item[22.1]
+	\item[22.2]
+	\item[22.3]
+	\end{description}
+\end{document}
