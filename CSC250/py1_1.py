@@ -1,1 +1,0 @@
-print(str(float(input("a: ")**3))
